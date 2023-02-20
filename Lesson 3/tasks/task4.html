@@ -26,14 +26,14 @@
 			case (userAge <= Pupil): result = (`You are going to school "${userAge}"`)
 				break;
 			case (userAge <= Student): result = (`You are Student "${userAge}"`)
-				break;5
-			case (userAge <= Workering): result =(`You are going to Job "${userAge5}"`)
 				break;
-			// case (userAge > Worker): result = (`You are pensioner "${Oldman}"`)
-			// 	break;
-
+			case (userAge <= Workering): result =(`You are going to Job "${userAge}"`)
+				break;
+			 case (userAge > Workering): result = (`You are pensioner "${userAge}"`)
+				break;
 			default: result = ('Ваш вік не є коректний, спробуйте ще')
 				break;
+		}
 		}
 	alert(result);
 	</script>
