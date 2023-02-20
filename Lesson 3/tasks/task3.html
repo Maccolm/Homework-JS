@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+<script>
+	//Випадковим чином генерується число від 1 до 5. Спробуйте вгадати число за 2 спроби.
+//1.Вводимо необхідні дані
+let userNumber = parseInt(prompt('Відгадайте число від 1 до 5'));
+const minRandomNum = 1;
+maxRandomNum = 5;
+
+let randomNum
+let userNumber2
+//2. Знаходимо результат
+randomNum = minRandomNum + Math.floor(Math.random() * (maxRandomNum - minRandomNum + 1))
+
+let result
+let result2
+if (randomNum == userNumber) {
+	result = alert(`Вітаю, Ви відгадали ${randomNum}`)
+ } else { 
+	result = alert("Невірно, спробуйте ще раз")
+	userNumber2 = parseInt(prompt('Відгадайте ще раз число від 1 до 5'))
+	if (randomNum == userNumber2) {
+		result2 = `Вітаю, Ви відгадали ${randomNum}`
+	} else { 
+			result2 = alert('Ви не відгадали, котики сумні((')
+ }
+ }
+</script>
+
+</body>
+</html>
