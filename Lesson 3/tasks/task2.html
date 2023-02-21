@@ -16,14 +16,14 @@
 		
 
 		//2. Знаходимо результат
-		if (priceOfGoods < mountOfMoney && (mountOfMoney - priceOfGoods) >= 4) 
-				alert('Не бажаєте купити лотерею за 4 гривні?')
-			else if (priceOfGoods > mountOfMoney)
-				alert('Відмова, не вістачає коштів')
-			else if (priceOfGoods === mountOfMoney)
-				alert('Дякую за покупку')
-			else 
-				alert('Введіть коректне значення!ва')
+		if (priceOfGoods > mountOfMoney)
+			alert('Відмова, не вістачає коштів')
+		else if (mountOfMoney - priceOfGoods >= 4)
+			alert('У Вас залишилася решта, щоб купити лотерею, тож не бажаєте купити лотерею за 4 гривні?')
+		else if (priceOfGoods <= mountOfMoney)
+			alert('Дякую за покупку')
+		else 
+			alert('Введіть коректне значення!')
 	</script>
 </body>
 </html>

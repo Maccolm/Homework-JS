@@ -21,17 +21,17 @@
 		let result;
 
 		switch (true) {
-			case (userAge <= Child): result = (`You are child "${userAge}"`)	
+			case (userAge <= Child): result = `You are child "${userAge}"`
 				break;
-			case (userAge <= Pupil): result = (`You are going to school "${userAge}"`)
+			case (userAge <= Pupil): result = `You are going to school "${userAge}"`
 				break;
-			case (userAge <= Student): result = (`You are Student "${userAge}"`)
+			case (userAge <= Student): result = `You are Student "${userAge}"`
 				break;
-			case (userAge <= Workering): result =(`You are going to Job "${userAge}"`)
+			case (userAge <= Workering): result =`You are going to Job "${userAge}"`
 				break;
-			 case (userAge > Workering): result = (`You are pensioner "${userAge}"`)
+			 case (userAge > Workering): result = `You are pensioner "${userAge}"`
 				break;
-			default: result = ('Ваш вік не є коректний, спробуйте ще')
+			default: result = 'Ваш вік не є коректний, спробуйте ще'
 				break;
 		}
 	alert(result);
