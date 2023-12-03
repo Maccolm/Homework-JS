@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//Задача 1. Описати масив об’єктів – сайтів розроблених компанією з такими властивостями
+
+	// 	let company = [{
+	// 		name : 'Microsoft',
+	// 		owner : 'owner1',
+	// 		sponsors : [{
+	// 				surname : 'Surname1',
+	// 				name : 'name1',
+	// 				mount : 12000
+	// 			},
+	// 			{
+	// 				surname: 'Surname2',
+	// 				name: 'name2',
+	// 				mount: 1000
+	// 			},
+	// 			{
+	// 				surname: 'Surname3',
+	// 				name: 'name4',
+	// 				mount : 5000,			},
+	// 		],
+	// 		year : 2000,
+	// 		price : 200000
+	// 	},
+	// 	{
+	// 			name: 'Microsoft2',
+	// 			owner: 'owner2',
+	// 			sponsors: [{
+	// 					surname: 'Surname4',
+	// 					name: 'name5',
+	// 					mount: 1200
+	// 				},
+	// 				{
+	// 					surname: 'Surname5',
+	// 					name: 'name6',
+	// 					mount: 1000
+	// 				},
+	// 				{
+	// 					surname: 'Surname6',
+	// 					name: 'name7',
+	// 					mount: 1500,
+	// 				},
+	// 			],
+	// 			year: 2007,
+	// 			price: 1000
+	// 		},
+	// 		{
+	// 			name: 'Microsoft3',
+	// 			owner: 'owner3',
+	// 			sponsors: [{
+	// 					surname: 'Surname5',
+	// 					name: 'name8',
+	// 					mount: 10200
+	// 				},
+	// 				{
+	// 					surname: 'Surname6',
+	// 					name: 'name9',
+	// 					mount: 9000
+	// 				},
+	// 				{
+	// 					surname: 'Surname9',
+	// 					name: 'name10',
+	// 					mount: 1000,
+	// 				},
+	// 			],
+	// 			year: 2020,
+	// 			price: 12000
+	// 		},
+	// ]
+	//7) Створити 2 окремих списки з копіями об’єктів, що містять сайти з вартість до 10000 і більше 10000
+		// let sites_Price_Lower_10000 = []
+		// let sites_Price_More_10000 = []
+		// let price_Of_Site_10000 = 10000
+		// for (const companyItem of company) {
+		// 	if(companyItem.price > price_Of_Site_10000) {
+		// 		sites_Price_More_10000.push(JSON.parse(JSON.stringify(companyItem)))
+		// 	} else {
+		// 		sites_Price_Lower_10000.push(JSON.parse(JSON.stringify(companyItem)))
+		// 	}
+		// }
+		// console.log(sites_Price_Lower_10000)
+		// 	console.log(sites_Price_More_10000)
+
+
+	// //1) загальну вартість усіх сайтів
+	// const totalPriceWebSites = company.reduce((prevSum, value) => prevSum + value.price, 0)
+	// document.write(totalPriceWebSites)
+
+	//2) кількість сайтів, що було зроблено між 2000 та 2009 рр
+
+	// const sitesBetween_2000_2009 = company.reduce((prevNum, website) => website.year > 1999 && website.year < 2010 ? prevNum +  1 : prevNum, 0)
+
+	// document.write(`websites between 2000 and 2009 : ${sitesBetween_2000_2009}`)
+
+	// 3) кількість сайтів, де сума спонсорських вкладень була більшою за 20000
+// 	let maxSponsorValue = 0
+// 	let maxSponsorName 
+
+// 	company.forEach((site) => 
+// 	{let totalSum = site.sponsors.reduce((prevSum, sponsor) => prevSum + sponsor.mount, 0) 
+// 	if (totalSum > maxSponsorValue) {
+// 		maxSponsorValue = totalSum
+// 		maxSponsorName = site.name
+// 	}
+// })
+// console.log(`Найбільші спонори були в компанії ${maxSponsorName}, Їхні вкладення становили ${maxSponsorValue}`)
+
+//4) створити загальний список усіх спонсорів (поки можуть повторюватись, просто зібрати усі у масив)
+
+// const allSponsors = []
+// company.forEach((site) => 
+// 	site.sponsors.forEach((sponsor) => 
+// 		allSponsors.push(sponsor)))
+// console.log(allSponsors)
+
+//6) упорядкувати список за спаданням ціни
+
+// let sortedCompanies = company.sort((company1, company2) => {
+// return company2.price - company1.price
+// })
+
+// console.log(sortedCompanies)
+
+//7) Створити 2 окремих списки з копіями об’єктів, що містять сайти з вартість до 10000 і більше 10000
+// let sites_Price_Lower_10000 = []
+// let sites_Price_More_10000 = []
+// let price_10000 = 10000
+// for (const companyItem of company) {
+// 	if (companyItem.price < price_10000) {
+// 		sites_Price_Lower_10000.push(JSON.parse(JSON.stringify(companyItem)))
+// 	} else {
+// 		sites_Price_More_10000.push(JSON.parse(JSON.stringify(companyItem)))
+// 	}
+
+// }
+
+// console.log(sites_Price_More_10000)
+// console.log(sites_Price_Lower_10000)
+
+
+// Задача 2. Розробити функцію, у яку передають об’єкт(день, місяць, рік).Визначити, який буде рік через N місяців.
+
+// let userDate = {
+// 	day: 17,
+// 	month: 7,
+// 	year: 23
+// }
+// function getShiftedMonth({month, year}, N) {
+// 	const countedMonth =  (year * 12 + month - 1) + N
+// 	 const countedYear =  Math.floor( countedMonth / 12)
+// 	 const newMonth = ((countedMonth % 12) + 12) % 12 + 1
+// 	return {
+// 		month: newMonth,
+// 		year: countedYear 
+// 	}
+// }
+	
+
+// let N = parseInt(prompt('Введіть кількість місяців'))
+// const shiftedMonth = getShiftedMonth(userDate, N)
+// alert(`Через ${N} місяців буде ${shiftedMonth.year} рік і ${shiftedMonth.month}-й місяць`)
+
+
+
+	// let dataList = [{ "id": 344277463, "old_price": 1395, "old_usd_price": "37.70", "price": 1099, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "29.70", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 363766641, "old_price": 0, "old_usd_price": "0.00", "price": 90, "min_month_price": 0, "sell_status": "unavailable", "status": "active", "usd_price": "2.43", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 339273715, "old_price": 38, "old_usd_price": "1.03", "price": 25, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "0.68", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 330746665, "old_price": 3087, "old_usd_price": "83.43", "price": 2548, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "68.86", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 344972806, "old_price": 699, "old_usd_price": "18.89", "price": 549, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "14.84", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 318302299, "old_price": 0, "old_usd_price": "0.00", "price": 8500, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "229.73", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 361430565, "old_price": 3500, "old_usd_price": "94.59", "price": 1999, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "54.03", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 14429030, "old_price": 3339, "old_usd_price": "90.24", "price": 2999, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "81.05", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 56340912, "old_price": 2094, "old_usd_price": "56.59", "price": 1776, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "48.00", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 315292225, "old_price": 1799, "old_usd_price": "48.62", "price": 1499, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "40.51", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 28437961, "old_price": 42999, "old_usd_price": "1162.14", "price": 33999, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "918.89", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 339896833, "old_price": 6399, "old_usd_price": "172.95", "price": 5899, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "159.43", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 364354149, "old_price": 1600, "old_usd_price": "43.24", "price": 1500, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "40.54", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": { "id": 106, "discount_price": 1300, "title": "ціна по промокоду діє з 22.03 по 28.03", "price_show_in_site_id": 5151, "show_in_details": 1, "show_in_catalog": 1, "is_description": 1, "description": "\r<style>.popup-addprice-description h2 {display: none;}</style>\r<div class=\"cat-promo-i clearfix\">\r<h4 class=\"cat-promo-title\">Промокод на знижку</h4>\r<h2 style=\"font-size: 30px; color: #FB515D; display: inline-block; padding: 8px 16px; line-height: 35px; border: 2px dashed; border-radius: 5px;\">CYCC-MRKT-STRS-2245</h2>\r<div>\r<span class=\"btn-link btn-link-green\"><a href=\"https://rozetka.com.ua/ua/promo/allgalaxies/\" class=\"btn-link-i\" style=\"padding: 8px 16px; font-size: 17px; line-height: 20px;\">Більше товарів зі знижками</a></span>\r</div>\r</div>\r<div class=\"cat-promo-g-i-wrapper clearfix\">\r<div class=\"cat-promo-i clearfix\">\r<div class=\"cat-promo-desc\">\r<h4 class=\"cat-promo-title-small\">Як активувати промокод:</h4>\r<p> 1. Скопіюйте промокод.</p>\r<p>2. Додайте товар у кошик і перейдіть до оформлення товару. У вікні оформлення під сумою замовлення ви побачите посилання «Ввести промокод».</p>\r<p>3. Введіть промокод у полі, що з’явиться, і натисніть кнопку «Застосувати».</p><span></span>\r</div>\r</div>\r<div class=\"cat-promo-i clearfix\">\r<div class=\"cat-promo-desc\">\r<h4 class=\"cat-promo-title-small\">Під час застосування промокоду:</h4>\r<p>1. «Оплата частинами» та «Кредит 0%» без страхування не діють.</p>\r<p>2. Подарунки не входять у вартість і доступні лише при купівлі за ціною, що на сайті.</p><span></span>\r</div>\r</div>\r</div>\r\r", "promo_code": "", "url_for_image": "https://rozetka.com.ua/ua/promo/allgalaxies/", "images": "", "images_mobile": "", "hide_price": 0 } }, { "id": 363184995, "old_price": 0, "old_usd_price": "0.00", "price": 4499, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "121.59", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 98077846, "old_price": 0, "old_usd_price": "0.00", "price": 3113, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "84.14", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 310694668, "old_price": 0, "old_usd_price": "0.00", "price": 3000, "min_month_price": 0, "sell_status": "unavailable", "status": "active", "usd_price": "81.08", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 362812029, "old_price": 0, "old_usd_price": "0.00", "price": 21700, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "586.49", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 361422708, "old_price": 4100, "old_usd_price": "110.81", "price": 2699, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "72.95", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 318302257, "old_price": 0, "old_usd_price": "0.00", "price": 8500, "min_month_price": 0, "sell_status": "unavailable", "status": "active", "usd_price": "229.73", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 310694498, "old_price": 0, "old_usd_price": "0.00", "price": 2963, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "80.08", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 363651273, "old_price": 5199, "old_usd_price": "140.51", "price": 4890, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "132.16", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 330747022, "old_price": 3087, "old_usd_price": "83.43", "price": 2606, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "70.43", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 362617635, "old_price": 4872, "old_usd_price": "131.68", "price": 2436, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "65.84", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }, { "id": 363614439, "old_price": 5199, "old_usd_price": "140.51", "price": 4890, "min_month_price": 0, "sell_status": "available", "status": "active", "usd_price": "132.16", "pl_charge_pcs": 0, "pl_use_instant_bonus": false, "pl_premium_bonus_charge_pcs": 0, "rests": -1, "min_price": 0, "max_price": 0, "has_shops": false, "info": null, "show_in_site": null }]
+	
+	//1) Загальну вартість (нові ціни - price)
+	// let totalPrice = dataList.reduce((prevSum, mount) => prevSum + mount.price, 0)
+	// console.log(totalPrice)
+
+	// 2)Знайти кількість товарів, у яких ціна зменшилась(price < old_price).
+
+	// let becameLowerPrice = dataList.reduce((prevCount, el) => el.price < el.old_price ? prevCount + 1 : prevCount, 0)
+	// console.log(becameLowerPrice)
+
+	//3) Товари, які доступні (sell_status:"available")
+
+	// let availableProducts = dataList.filter(product => product.sell_status === 'available')
+
+	// console.log(availableProducts)
+
+	//4) сформувати новий список об”єктів тільки доступних  для продажу товарів, які міститимуть тільки ідентифікатор товару (id), нову ціну (price), стару ціну (old_price), та ціну у доларах (usd_price)
+
+	// let availableProducts = dataList.filter(product => product.sell_status === 'available')
+	// let newProductList = availableProducts.map(product => {
+	// 	return {
+	// 		id: product.id,
+	// 		price: product.price,
+	// 		old_price: product.old_price,
+	// 		usd_price: product.usd_price
+	// 	}
+	// })
+	// console.log(newProductList)
+
+// 	let products = [{
+// 		price: 12,
+// 		count: 80
+// 	},
+// 	{
+// 			price: 90,
+// 			count: 10
+// 		},
+// 		{
+// 			price: 800,
+// 			count: 2
+// 		}
+//  ]
+
+//  const totalValue = products.map(product => {
+// 	return {
+// 		price: product.price,
+// 		totalPrice: product.price * product.count}
+//  })
+//  console.log(totalValue)
+
+// Генеруємо рулетку
+
+// -----------Властивості-----------
+// function Roulette(scoresNumber, minScore, maxScore) {
+// 	this.minScore = minScore
+// 	this.maxScore = maxScore
+// 	this.scores = this.getRandomList(scoresNumber)
+// } 
+// // -----------Медоти----------
+// Roulette.prototype.getRandomNumber = function(minV,maxV) {
+// 	return minV + Math.floor(Math.random()*(maxV - minV + 1))
+// }
+// Roulette.prototype.getRandomList = function(scoresNumber) {
+// 	let scoresList = []
+// 	for (let i = 0; i < scoresNumber; i++) {
+// 		const randNum = this.getRandomNumber(this.minScore, this.maxScore)
+// 		scoresList.push(randNum)
+// 	}
+// 	return scoresList
+// }
+
+// //Повернути список згенерованих чисел
+// Roulette.prototype.showScores = function() {
+// 	document.write(this.scores)
+// }
+// // list.showScores()
+// // Повернути в стрінгу і висести
+// Roulette.prototype.toString = function() {
+// 	return `Roulette (${(this.minScore, this.maxScore)})`
+// }
+// // Крутити рулетку, (отримання випадкового балу)
+// Roulette.prototype.getRandomScore = function() {
+// 	let randIndex = this.getRandomNumber(0, this.scores.length - 1)	
+// 	return this.scores[randIndex]
+// }
+// // document.write(`<br> ${list.getRandomScore()}`)
+// //Граємо в рулетку
+// Roulette.prototype.playGame = function() {
+// 	let sum = 0
+// 	while (confirm('Бажаєте зіграти в рулетку?')) {
+// 		const result = this.getRandomScore()
+// 		sum += result
+// 		alert(`Випало число: ${result}, Ваш поточний виграш / програш ${sum}`)
+// 	}
+// 	alert(`Ваш загальний виграш становить  ${sum}`)
+// }
+// const game1 = new Roulette(10,-100,100)
+// game1.playGame()
+
+// Задача 0. Дано два об’єкта.Обидва містять масив цілих чисел.При цьому у одному з них є функція знаходження суми, а у іншому – функція для знаходження добутку тих, які знаходяться між заданими мінімальним і максимальних значенням.
+// Використати обидва методи стосовно обидвох об’єктів(використати call, apply)
+
+// let obj1 = {
+// 	nums: [2,4,9,21,99,32,90],
+// 	//  sum : function() {
+// 	// 	let sum = 0
+// 	// 	for (let i = 0; i < this.nums.length; i++) {
+// 	// 		sum += this.nums[i]
+// 	// 	}
+// 	// 	return sum
+// 	//  }
+// 	//Або
+// 	getsum : function() {
+// 		return this.nums.reduce((prevSum, element) => prevSum + element)
+// 	}
+// }
+// let obj2 = {
+// 	nums: [2,13,2,4,12,321,12], 
+// 	// pluralBetweenMinMax : function(minV, maxV) {
+// 	// 	let mount = 1
+// 	// 	for(const number of this.nums) {
+// 	// 		if(number >= minV && number <= maxV) {
+// 	// 			mount *= number
+// 	// 		}
+// 	// 	}
+// 	// 	return mount
+// 	// }
+// 	// Аобо
+// 	getProduct : function(minV, maxV) {
+// 		return this.nums.reduce((prevProduct, number) => 
+// 		number >= minV && number <= maxV 
+// 		? prevProduct * number 
+// 		: prevProduct,
+// 		 1)
+// 	}
+// }
+
+// let sumObj2 = obj1.sum.apply(obj2) 
+// let productobj1 = obj2.pluralBetweenMinMax.call(obj1,2,21)
+// console.log(productobj1);
+
+// Задача 2. Створити об’єкт «Авто».
+// 	Авто
+
+
+// 	Поля(властивості)
+// 	Марка
+// Розмір бака
+// Кількість наявних літрів
+// Кількість місць
+// Кількість пасажирів
+// 	Методи(дії)
+// Заправка на вказану кількість літрів
+// Виведення кількості пасажирів
+// Додавання пасажирів
+// Висадка пасажирів
+
+// let auto = {
+// 	// 	Поля(властивості)
+// // 	Марка
+// 	mark : 'Audi',
+// // Розмір бака
+// 	tankSize: 40,
+// // Кількість наявних літрів
+// 	currentFuel: 30,
+// // Кількість місць
+// 	avaiableSits: 4,
+// // Кількість пасажирів
+// 	passengers: 3,
+// // 	Методи(дії)
+// // Заправка на вказану кількість літрів
+// 	fillFuel : function(liters) {
+// 		this.currentFuel = liters + this.currentFuel 
+// 	},
+// // Виведення кількості пасажирів
+// 	showNumberOfPPassangers : function () {
+// 		document.write(this.passengers)
+// 	}, 
+// // Додавання пасажирів
+// 	addPassangers: function(numbersPassanger) {
+// 		this.passengers + numbersPassanger > this.avaiableSits ? alert('Перевищена кількість максимальних місць') : this.passengers += numbersPassanger
+// 	},
+// // Висадка пасажирів
+// 	takingOffPassangers : function(numbersPassanger) {
+// 		this.passengers - numbersPassanger < 0 ? alert('Пасажирів менше ніж вказано при висадкі') : this.passengers -= numbersPassanger
+// 	}
+// }
+// auto.fillFuel(7)
+// console.log(auto.currentFuel)
+// auto.takingOffPassangers(4)
+// document.write(auto.passengers)
+
+// Задача 3. Розробити клас MultChecker для перевірки таблиці множення
+// 	Поля
+// 	Число, яке перевіряємо(наприклад, перевірка частини таблиці множення на 7)
+// Кількість правильних відповідей
+// Кількість неправильних відповідей
+// 	Методи
+// Генерування прикладу(метод випадковим чином визначає друге число, перше число фіксоване)
+// Перевірка правильності вказаної відповіді
+// 	render - виведення інформації про тестування на екран
+// class MultChecker {
+// 	constructor(checkNumber){
+// 	// 	Поля
+// 	this.numbers = [1,2,3,4,5,6,7,8,9,10],
+// // 	Число, яке перевіряємо(наприклад, перевірка частини таблиці множення на 7)
+// 	this.checkNumber = checkNumber,
+// // Кількість правильних відповідей
+// 	this.correctAnswers = 0,
+// 	// Кількість неправильних відповідей
+// 	this.fails = 0,
+	
+// 	this.history = []
+// 	}
+// // 	Методи
+// // Генерування прикладу(метод випадковим чином визначає друге число, перше число фіксоване)
+// 	getRandomNum(){
+// 		const randomIndex = Math.floor(Math.random() * this.numbers.length)
+// 		return this.numbers[randomIndex]
+// 	} 
+
+// 	getExample(){
+// 		let randNumber = this.getRandomNum()
+// 		const example = this.checkNumber * randNumber
+// 		const answer = parseInt(prompt(`${this.checkNumber} * ${randNumber} = ?`))
+// 		this.history.push({checkNumber: this.checkNumber, example: example, answer: answer, randNumber})
+// 		return {example, answer}
+// 	}
+// // Перевірка правильності вказаної відповіді
+// 	checkAnswer(){
+// 		const {example, answer} = this.getExample()
+// 		if(example === answer) {
+// 			alert(`Вірно, це ${example}`)
+// 			this.correctAnswers += 1
+// 		} else {
+// 			alert(`Невірно, правильна відповідь: ${example}, Ваша відповідь: ${answer}`)
+// 			this.fails += 1
+// 		}
+// 	}
+// // 	render - виведення інформації про тестування на екран
+// 	showHistory(){
+// 		this.history.forEach((item, index) => {
+// 			document.write(`${index + 1}) ${item.checkNumber} * ${item.randNumber} = ${item.answer}, Правильна відповідь: ${item.example}<br>`)
+// 		})
+// 		document.write(`Кількість правильних відповідей ${this.correctAnswers}, неправильних ${this.fails}`)
+// 	}
+// 	playGame(){
+// 		while(confirm('Бажаєте перевірити знання?')) {
+// 			this.checkAnswer()
+// 		} 
+// 		this.showHistory()
+// 		}
+// 	}
+// let countChecker = new MultChecker(7)
+// countChecker.playGame()
+
+// Задача 5. Розробити клас «Керівник танців»
+// 	Поля
+// Масив імен хлопців
+// Масив імен дівчат
+// 	Методи
+// Метод випадкового вибору імені хлопця
+// Метод випадкового вибору імені дівчини
+// Метод виведення пари для танців
+// Метод run, який ініціює через кожні 5 секунд виведення нової пари для танців
+// class DanceDirector {
+// 	constructor(boysNames, girlsNames) {
+// 		this.boys = boysNames,
+// 		this.girls = girlsNames
+// 	}
+// 	// Метод випадкового вибору імені хлопця
+// 	getRandomName(namesArray) {
+// 		const randomIndex = Math.floor(Math.random() * namesArray.length)
+// 		return namesArray[randomIndex]
+// 	}
+// 	randomBoyName() {
+// 		const boyName = this.getRandomName(this.boys)
+// 		return boyName
+// 	}
+// 	// Метод випадкового вибору імені дівчини
+// 	randGirlName() {
+// 		const girlName = this.getRandomName(this.girls)
+// 		return girlName
+// 	}
+// 	// Метод виведення пари для танців
+// 	generationCouple() {
+// 		const boyName = this.randomBoyName()
+// 		const girlName = this.randGirlName()
+// 		alert(`${boyName} i ${girlName}`)
+// 	}
+// 	run(){
+// 		setInterval(() => this.generationCouple(), 5000)
+
+// 	}
+// }
+// let boysNames = ['Коля', 'Валя', 'Віталя', 'Ігорь', 'Саша', 'Максим', 'Женя', 'Міша', 'Йохан', 'Мікель', 'Петро', 'Віктор']
+// let girlsNames = ['Оксана', 'Дарья', 'Аліка', 'Вікторія', 'Женя', 'Ксенія', 'Юлія', 'Лін', 'Наташа', 'Анастасія', 'Елізабет']
+// let coupleMaker = new DanceDirector(boysNames, girlsNames)
+// coupleMaker.run()
+
+	</script>	
+</body>
+</html>

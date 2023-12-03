@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//  Дано два об’єкта.Обидва містять масив цілих чисел.При цьому у одному з них є функція знаходження суми, а у іншому – функція для знаходження добутку тих, які знаходяться між заданими мінімальним і максимальних значенням.
+			// Використати обидва методи стосовно обидвох об’єктів(використати call, apply)
+
+			let obj1 = {
+				nums: [2,4,9,21,99,32,90],
+				//  sum : function() {
+				// 	let sum = 0
+				// 	for (let i = 0; i < this.nums.length; i++) {
+				// 		sum += this.nums[i]
+				// 	}
+				// 	return sum
+				//  }
+				//Або
+				getSum : function() {
+					return this.nums.reduce((prevSum, element) => prevSum + element)
+				}
+			}
+			let obj2 = {
+				nums: [2,13,2,4,12,321,12],
+				// pluralBetweenMinMax : function(minV, maxV) {
+				// 	let mount = 1
+				// 	for(const number of this.nums) {
+				// 		if(number >= minV && number <= maxV) {
+				// 			mount *= number
+				// 		}
+				// 	}
+				// 	return mount
+				// }
+				// Аобо
+				getProduct : function(minV, maxV) {
+					return this.nums.reduce((prevProduct, number) =>
+					number >= minV && number <= maxV
+					? prevProduct * number
+					: prevProduct,
+					 1)
+				}
+			}
+
+			let sumObj2 = obj1.getSum.apply(obj2)
+			let productobj1 = obj2.getProduct.call(obj1,2,21)
+			console.log(`Sum Object 2: ${sumObj2}`);
+			console.log(`Product Object 1: ${productobj1}`);
+	</script>
+</body>
+</html>

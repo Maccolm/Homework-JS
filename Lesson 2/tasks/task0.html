@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//S1=a+12+b
+		//1.Вводимо необхідні дані
+			let firstNumber = parseInt(prompt('Введіть a', '0'));
+			let secondNumber = parseInt(prompt('Введіть b', '0'));
+
+		//2. Знаходимо результат
+			let s = firstNumber + 12 + secondNumber;
+
+		//3.Виводимо результат
+			document.write(`<h2>S1= ${s.toFixed(2)}</h2>`);
+			document.write(`<p>Введені числа: ${firstNumber}, ${secondNumber} </p>`);
+
+		//S2 = √((a + b) / (2 * a))
+		//1.Вводимо необхідні дані2
+			let firstNumber2 = parseInt(prompt('Введіть число для (S2) a', '0'));
+			let secondNumber2 = parseInt(prompt('Введіть число для (S2) b', '0'));
+
+		//2. Знаходимо результат
+			let s2 = Math.sqrt((firstNumber2 + secondNumber2) / (2 * firstNumber2));
+
+		//3.Виводимо результат
+			document.write(`<h3>S2= ${s2.toFixed(2)}</h3>`);
+			document.write(`<p>Введені числа: ${firstNumber2}, ${secondNumber2} </p>`);
+
+		//S3 = (a + b) * 2
+		//1.Вводимо необхідні дані2
+			let firstNumber3 = parseInt(prompt('Введіть число для (S3) a', '0'));
+			let secondNumber3 = parseInt(prompt('Введіть число для (S3) b', '0'));
+
+		//2. Знаходимо результат
+			let s3 = Math.cbrt((firstNumber3 + secondNumber3) / 2);
+
+		//3.Виводимо результат
+			document.write(`<h3>S2= ${s3.toFixed(2)}</h3>`);
+			document.write(`<p>Введені числа: ${firstNumber3}, ${secondNumber3} </p>`);
+
+		//S4 = sin(a / -|b|)
+		//1.Вводимо необхідні дані2
+			let firstNumber4 = parseInt(prompt('Введіть число для (S4) a', '0'));
+			let secondNumber4 = parseInt(prompt('Введіть число для (S4) b', '0'));
+
+			//2. Знаходимо результат
+			let s4 = Math.sin((firstNumber4 / - secondNumber4));
+
+			//3.Виводимо результат
+			document.write(`<h3>S2= ${s4.toFixed(2)}</h3>`);
+			document.write(`<p>Введені числа: ${firstNumber4}, ${secondNumber4} </p>`);	
+	</script>
+</body>
+</html>

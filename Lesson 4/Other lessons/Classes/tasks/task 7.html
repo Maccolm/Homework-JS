@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Statistic</title>
+</head>
+<body>
+	<script>
+		class Statistic {
+				static sumCounter = 0
+				static productCounter = 0
+				static maxCounter = 0
+				static objectCounter = 0
+				constructor(dataList){
+					this.dataList = [...dataList]
+					Statistic.objectCounter++
+				}
+				getDatalist(){
+					return JSON.stringify(this.dataList)
+				}
+				getSum() {
+					Statistic.sumCounter++
+					return this.dataList.reduce((prevSum, el) => prevSum + el)
+				}
+				getPruduct(){
+					Statistic.productCountser++
+					return this.dataList.reduce((prevProd, el) => prevProd * el)
+				}
+				getMaxValue(){
+					Statistic.maxCounter++
+					return Math.max(...this.dataList)
+				}
+				static getStatistic(){
+				return `object numbers = ${this.objectCounter}<br>
+						total sum = ${this.sumCounter}<br>
+						total product = ${this.productCounter}<br>
+						total search max value = ${this.maxCounter}`
+				}
+			}
+			let st1 = new Statistic([4,6,1])
+			let st2 = new Statistic([21,100,2])
+			document.write(`numbers in Statistic 1 = ${st1.getDatalist()}<br>`)
+			document.write(`numbers in Statistic 2 = ${st2.getDatalist()}<br>`)
+			document.write(`get sum Statistic 1 = ${st1.getSum()}<br>`)
+			document.write(`get sum Statistic 2 = ${st2.getSum()}<br>`)
+			document.write(`get max value Statistic 1= ${st1.getMaxValue()}<br>`)
+			document.write(`get max value Statistic 2= ${st2.getMaxValue()}<br>`)
+			document.write(`get product  Statistic 1= ${st1.getPruduct()}<br>`)
+			document.write(`get product  Statistic 2= ${st2.getPruduct()}<br>`)
+			document.write(`<br>Statistics: ${Statistic.getStatistic()}`)
+	</script>
+</body>
+</html>

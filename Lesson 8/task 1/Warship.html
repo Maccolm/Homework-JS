@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//Створити ігрове поле
+
+		const mountOfShips = parseInt(prompt('Enter number of ships'))
+		let cellsNum = 10;
+
+		function getRandomNum(minValue,maxValue) {
+			return minValue + Math.floor(Math.random()* (maxValue - minValue + 1))
+		}
+
+		function getFreeCell(gameField) {
+
+			const lastIndex = gameField.length-1
+			do {
+				shipIndex = getRandomNum(0, cellsNum - 1)
+			} while (gameField[shipIndex] === 1) 
+				return shipIndex
+		}
+		
+		function createField(cellsNum, mountOfShips) {
+			const gameField = new Array(cellsNum).fill(0)
+			for (let i = 0; i < mountOfShips; i++) {
+				let shipIndex = getFreeCell(gameField)
+				gameField[shipIndex] = 1
+			} 
+			return gameField
+		}
+
+		// Гра користувача
+		function game(gameField, mountOfShips) {
+		do	{
+				const userStrikePosition = parseInt(prompt(`Where are we shooting? (1-${gameField.length})?`)) -1
+
+				if (gameField[userStrikePosition] === 1) {
+					mountOfShips --
+					alert(`You hit, ${mountOfShips} ships left`)
+					gameField[userStrikePosition] = 0
+				} else 
+					alert('Missed, try again') 
+			} while (mountOfShips > 0)
+		}
+		const gameField = createField(cellsNum, mountOfShips)
+		game(gameField, mountOfShips)
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Reklam</title>
+</head>
+<body>
+	<script>
+			class Reklam {
+			static minIntervalValue
+			static maxIntervalValue 
+			constructor(message, MinV, MaxV) {
+				this.message = message
+				Reklam.minIntervalValue = MinV
+				Reklam.maxIntervalValue = MaxV
+			}
+			randomInterval() {
+				document.write(`<br>min = ${Reklam.minIntervalValue}, max = ${Reklam.maxIntervalValue}<br>`)
+				return Math.floor(Math.random() * (Reklam.maxIntervalValue - Reklam.minIntervalValue + 1))
+			}
+			start(){
+				setTimeout(()=>{
+					document.write(this.message)
+					this.start()
+				}, this.randomInterval()*1000)
+			}
+		}
+		let r1 = new Reklam('Hello user', 2,5)
+		r1.start()
+	</script>
+</body>
+</html>

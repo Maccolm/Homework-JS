@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		// Створити функцію, яка за номером місяця повертає його назву.
+
+		function defindMonth(monthNum) {
+			let nameOfMonth
+			switch (monthNum) {
+				case 12: nameOfMonth = 'February'
+					break;
+				case 1: nameOfMonth = 'January'
+					break;
+				case 2: nameOfMonth = 'February'
+					break;
+				case 3: nameOfMonth = 'March'
+					break;
+				case 4: nameOfMonth = 'April'
+					break;
+				case 5: nameOfMonth = 'May'
+					break;
+				case 6: nameOfMonth = 'June'
+					break;
+				case 7: nameOfMonth = 'July'
+					break;
+				case 8: nameOfMonth = 'August'
+					break;
+				case 9: nameOfMonth = 'September'
+					break;
+				case 10: nameOfMonth = 'October'
+					break;
+				case 11: nameOfMonth = 'December'
+					break;
+				default: nameOfMonth = 'Whaaaaaaaaaaaaaat?'
+					break;
+			}
+			return nameOfMonth
+		}
+
+		const userNum = parseInt(prompt('Enter the number of the month'))
+
+		alert(defindMonth(userNum))
+	</script>
+</body>
+</html>

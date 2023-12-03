@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../style.css">
+	<title>Classes</title>
+</head>
+<body>
+	<h3><a href="tasks/task 0.html">Task 0</a></h3>
+	<p>
+		Develop a MultChecker class to check the multiplication table
+		<br> Fields
+		<br> - The number we are checking (for example, checking part of the multiplication table by 7)
+		<br> - Number of correct answers
+		<br> - Number of wrong answers
+		<br> Methods
+		<br> - Example generation (the method randomly determines the second number, the first number is fixed)
+		<br> - Checking the correctness of the specified answer
+		<br> - render - displaying information about testing on the screen
+	</p>
+	
+	<h3><a href="tasks/task 1.html">Task 1</a></h3>
+	<p>
+		<br> Develop the "Dance Manager" class
+		<br>  Fields
+		<br> - Array of boys' names
+		<br> - Array of girls' names
+		<br> Methods
+		<br> - Method to randomly select a boy's name
+		<br> - The method of randomly choosing a girl's name
+		<br> - The method of deriving a pair for dancing
+		<br> - The run method, which initiates the output of a new pair for dancing every 5 seconds
+	</p>
+	
+	<h3><a href="tasks/task 2.html">Task 2</a></h3>
+	<p>Create a TDate class to work with dates in the "day.month.year" format. The date is represented by a structure with
+	three fields. Implement the methods of increasing / decreasing the date by a certain number of days, months or years.
+	Input and output of the date is implemented using the toString method.
+	</p>
+	
+	<h3><a href="tasks/task 3.html">Task 3</a></h3>
+	<p>Create a TMoney class for working with monetary amounts. The amount must be stored in the form of a dollar equivalent.
+	Implement methods of adding / removing money mass, specifying the required amount in hryvnias, and determining the
+	dollar rate at which the amount in hryvnias will increase by 100. Store the dollar rate in a separate poly.</p>
+	<h3><a href="tasks/task 4.html">Task 4</a></h3>
+	<p>Object "Firm" (use members - classes)
+	<br>fields
+	<br>- company name;
+	<br>- founding date(year, month);
+	<br>- services(service name, cost, due date);
+	<br>- branch addresses (country, city, street, house number);
+	<br> methods
+	<br>- determining the number of years of the company's existence;
+	<br>- display all branches of the company in the specified city;
+	<br>- displaying on the screen the services that can be performed for the specified amount of money and the specified time
+	period;</p>
+
+	<h3><a href="tasks/task 5.html">Task 5</a></h3>
+	<p>Create a TBankomat class that simulates the operation of an ATM. The class should contain fields for storing the number
+	of bills of each denomination from 5 to 200 hryvnias. Implement methods for finding the maximum and minimum amounts that	an ATM can issue, and a method for withdrawing a certain 
+	amount.</p>
+	
+	<h3><a href="tasks/task 6.html">Task 6</a></h3>
+		<p>The advertising class, where a banner with an advertisement with the specified inscription will appear at each time interval.</p>
+
+	<h3><a href="tasks/task 7.html">Task 7</a></h3>
+		<p>Create a class that allows you to perform the following operations on arrays: finding the number of positives, the
+		number of negatives, the number of occurrences of a certain number (static methods)</p>
+
+	<h3><a href="tasks/task 8.html">Task 8</a></h3>
+	<p>Develop a student name class and make it the next random one</p>
+	
+	<h3><a href="tasks/task 9.html">Task 9</a></h3>
+	<p> Given a list of students (Name and number of points). Two teams are chosen in turn. The one with the lower average score wins. Statistical method of comparison</p>
+	
+	<h3><a href="tasks/task 10.html">Task 10</a></h3>
+	<p>Create a class that allows you to perform the following operations on arrays: finding the number of positives, the
+	number of negatives, the number of occurrences of a certain number (static methods)</p>
+
+	<h3><a href="tasks/task 11.html">Task 11</a></h3>
+	<p>Create a company car (driver, make, number). Create a class in such a way that only one instance of this class can be
+	created.</p>
+	
+	<h3><a href="tasks/task 12.html">Task 12</a></h3>
+	<p>Create a Reminder class. Every specified number of seconds (use setInterval), the program reminds of an event (it's just
+	text) and also displays the serial number of how many times the reminder has already occurred. Make it so that it is impossible to create several reminder objects at the same time. Methods of stopping the timer, method of changing the message without stopping the timer.</p>
+
+	<h3><a href="tasks/task 13.html">Task 13</a></h3>
+	<p>Warehouse. Database of goods stored in the warehouse: product name, unit of measurement, quantity, manufacturer (name,
+	registration number). Organize registration / shipment of goods, filtering by product name, filtering by company name</p>
+
+	<h3><a href="tasks/task 14.html">Task 14</a></h3>
+	<p>Personal library. Card file of the home library: book data (authors (pub, year of birth, short description), book title,
+	genre, publisher (title, registration number, year of publication)). Implement library sections (special literature,
+	hobbies, household and etc.), the origin of the book and its current availability. Organize the addition / removal of
+	books and the selection of books by title, author's name, and publisher.</p>
+
+	<h3><a href="tasks/task 15.html">Task 15</a></h3>
+	<p>There are two classes MultChecker (a class for checking the multiplication table - randomly generated numbers that
+	need to be multiplied), AddChecker (a class for checking addition - randomly generated numbers in a given range that
+	need to be added). Both classes send test results to an object of the Hystory class, which stores the test history in an
+	array of objects
+	<br> Example.
+	<br> testsList = [
+	<br> { firstNum: 1, secondNum: 5, opration:'*', userAnswer: 7, correctAnswer: 5},
+	<br> { firstNum: 3, secondNum: 4, opration:'+', userAnswer: 7, correctAnswer: 7},
+	<br> ]
+	<br> You can create a separate TestData class that describes one such test and will have these fields.
+	<br> Develop the TestManager class, which using these classes with the help of a timer periodically generates some N tasks
+	(we randomly choose what to survey: addition or multiplication) and conducts a survey. The test results are added to the
+	History object. Make the object look like this only one class could be created. When these N tasks are completed,
+	display the entire story on the screen.</p>
+
+	<h3><a href="../../lesson 19/cards/cards.html">Task 16</a></h3>
+	<p>Task. Given an array with data about sites (graphic image, name, link). Develop a LinkCard class that allows you to
+	generate a sample card.</p>
+	
+	<h3><a href="../../lesson 19/Lesson 19 practice.html">Task 17</a></h3>
+	<p>Develop a class that allows you to display a table of the specified dimension with random numbers (0-10). At the same
+	time, the minimum values are red, the maximum values are green.</p>
+</body>
+</html>

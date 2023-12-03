@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		const userFirstNum = parseFloat(prompt('Enter the first number'))
+		const userSecondNum = parseFloat(prompt('Enter the second number'))
+		const userThirdNum = parseFloat(prompt('Enter the third number'))
+		const userForthNum = parseFloat(prompt('Enter the fourth number'))
+
+ 		 function sum(num1, num2, num3, num4) {
+			return result = num1 + num2 + num3 + num4
+		}
+		 function 	productNums(num1, num2, num3, num4) {
+			return result = num1 * num2 * num3 * num4
+		}
+		 function arithmeticMean(num1, num2, num3, num4) {
+			return result = (num1 * num2 * num3 * num4) / 4
+		}
+		function minNum(num1, num2, num3, num4) {
+			return result = Math.min(num1, num2, num3, num4)
+		}
+		
+
+		let resultSumm = sum(userFirstNum, userSecondNum, userThirdNum, userForthNum)
+		let resultProduct = productNums(userFirstNum, userSecondNum, userThirdNum, userForthNum)
+		let resultArithmeticMean = arithmeticMean(userFirstNum, userSecondNum, userThirdNum, userForthNum)
+		let resultMinNum = minNum(userFirstNum, userSecondNum, userThirdNum, userForthNum)
+		
+		document.write(`The numbers you entered ${userFirstNum}, ${userSecondNum}, ${userThirdNum}, ${userForthNum} <br>
+							Summ ${resultSumm}<br>
+							Product ${resultProduct} <br>
+							Arithmetic average ${resultArithmeticMean}<br>
+							The minimum value is ${resultMinNum}` )
+	</script>
+</body>
+</html>

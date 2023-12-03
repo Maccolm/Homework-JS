@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TMonet</title>
+</head>
+<body>
+	<script>
+		class TMoney {
+	#dollarRate
+	#mountOfMoney
+	constructor(mountOfMoney, dollarRate = 40){
+		this.#dollarRate = dollarRate
+		this.#mountOfMoney = mountOfMoney
+		this.moneyInDollars = this.MountOfMoney / this.#dollarRate
+	}
+
+	get DollarRate(){
+		return this.#dollarRate
+	}
+	get MountOfMoney(){
+		return this.#mountOfMoney
+	}
+	set MountOfMoney(val) {
+		if(this.#mountOfMoney - val < 0) 
+		throw new Error('Not enough money') 
+		this.#mountOfMoney -= val
+		this.moneyInDollars = this.#mountOfMoney / this.#dollarRate
+
+	}
+	addMoney(val) {
+		this.MountOfMoney += val
+		this.moneyInDollars = this.MountOfMoney / this.#dollarRate
+
+	}
+	substractMoney(val) {
+		this.MountOfMoney -= val
+		this.moneyInDollars = this.MountOfMoney / this.#dollarRate
+	}
+	
+	toString(){
+		return `you have: ${this.moneyInDollars}$`
+	}
+}
+const value = parseInt(prompt('Type value in Bankomat'))
+const changingMoney = new TMoney(value)
+const addMoney = confirm('Do you want to add money to Bankomat?')
+if(addMoney){
+	const add = parseInt(prompt('add value'))
+	changingMoney.addMoney(add)
+} else if (!addMoney){
+	const substractMoney = confirm('Do you want to extract money?')
+	if(substractMoney){
+		const substract = parseInt(prompt('type value you want to substract'))
+		changingMoney.substractMoney(substract)
+	}
+}
+document.write(changingMoney)
+
+	</script>
+</body>
+</html>

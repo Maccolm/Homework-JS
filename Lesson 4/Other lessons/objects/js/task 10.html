@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Roulette</title>
+</head>
+<body>
+	<script>
+		// Генеруємо рулетку
+
+			// -----------Властивості-----------
+			function Roulette(scoresNumber, minScore, maxScore) {
+				this.minScore = minScore
+				this.maxScore = maxScore
+				this.scores = this.getRandomList(scoresNumber)
+			}
+			// -----------Медоти----------
+			Roulette.prototype.getRandomNumber = function(minV,maxV) {
+				return minV + Math.floor(Math.random()*(maxV - minV + 1))
+			}
+			Roulette.prototype.getRandomList = function(scoresNumber) {
+				let scoresList = []
+				for (let i = 0; i < scoresNumber; i++) {
+					const randNum = this.getRandomNumber(this.minScore, this.maxScore)
+					scoresList.push(randNum)
+				}
+				return scoresList
+			}
+
+			//Повернути список згенерованих чисел
+			Roulette.prototype.showScores = function() {
+				document.write(this.scores)
+			}
+			// list.showScores()
+			// Повернути в стрінгу і висести
+			Roulette.prototype.toString = function() {
+				return `Roulette (${(this.minScore, this.maxScore)})`
+			}
+			// Крутити рулетку, (отримання випадкового балу)
+			Roulette.prototype.getRandomScore = function() {
+				let randIndex = this.getRandomNumber(0, this.scores.length - 1)
+				return this.scores[randIndex]
+			}
+			//Граємо в рулетку
+			Roulette.prototype.playGame = function() {
+				let sum = 0
+				while (confirm('Want to play roulette?')) {
+					const result = this.getRandomScore()
+					sum += result
+					alert(`The result is: ${result}, Your current win / loss is ${sum}`)
+				}
+				alert(`Your total gain is ${sum}`)
+			}
+			const game1 = new Roulette(10,-100,100)
+			game1.playGame()
+
+	</script>
+</body>
+</html>

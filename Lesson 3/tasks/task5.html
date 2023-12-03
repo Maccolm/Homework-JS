@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//З клавіатури вводиться назва категорії водія (А-мотоцикл, В-легковий автомобіль, С-вантажний автомобіль). Вивести на екран назву транспортного засобу, яким він може керувати.
+		//1.Вводимо необхідні дані
+		let categoryDL = prompt('Напишіть категорію вашого водійського посвідчення Великою літерою')
+
+		let vehicle;
+		switch (categoryDL) {
+			case "A" : vehicle = ('Ви з категорією \'A\' Ви можете керувати мотоцикл')
+				break;
+			case "B" : vehicle = ('Ви з категорією \'B\' Ви можете керувати Легковий автомобіль')
+				break;
+			case "C" : vehicle = ('Ви з категорією \'C\' Ви можете керувати вантажівку')
+				break;
+			default: vehicle = ("Введіть коректне значення")
+				break;
+			}
+		alert(vehicle);
+	</script>
+</body>
+</html>

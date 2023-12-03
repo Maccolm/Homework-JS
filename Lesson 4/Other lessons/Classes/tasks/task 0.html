@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MultiChecker</title>
+</head>
+<body>
+	<script>
+		// Задача 3. Розробити клас MultChecker для перевірки таблиці множення
+// 	Поля
+// 	Число, яке перевіряємо(наприклад, перевірка частини таблиці множення на 7)
+// Кількість правильних відповідей
+// Кількість неправильних відповідей
+// 	Методи
+// Генерування прикладу(метод випадковим чином визначає друге число, перше число фіксоване)
+// Перевірка правильності вказаної відповіді
+// 	render - виведення інформації про тестування на екран
+class MultChecker {
+	constructor(checkNumber){
+// 	// 	Поля
+	this.numbers = [1,2,3,4,5,6,7,8,9,10],
+// 	Число, яке перевіряємо(наприклад, перевірка частини таблиці множення на 7)
+	this.checkNumber = checkNumber,
+// Кількість правильних відповідей
+	this.correctAnswers = 0,
+	// Кількість неправильних відповідей
+	this.fails = 0,
+	
+	this.history = []
+	}
+// 	Методи
+// Генерування прикладу(метод випадковим чином визначає друге число, перше число фіксоване)
+	getRandomNum(){
+		const randomIndex = Math.floor(Math.random() * this.numbers.length)
+		return this.numbers[randomIndex]
+	} 
+
+	getExample(){
+		let randNumber = this.getRandomNum()
+		const example = this.checkNumber * randNumber
+		const answer = parseInt(prompt(`${this.checkNumber} * ${randNumber} = ?`))
+		this.history.push({checkNumber: this.checkNumber, example: example, answer: answer, randNumber})
+		return {example, answer}
+	}
+// Перевірка правильності вказаної відповіді
+	checkAnswer(){
+		const {example, answer} = this.getExample()
+		if(example === answer) {
+			alert(`Correct - ${example}`)
+			this.correctAnswers += 1
+		} else {
+			alert(`Incorrect is the correct answer: ${example}, Your answer: ${answer}`)
+			this.fails += 1
+		}
+	}
+// 	render - виведення інформації про тестування на екран
+	showHistory(){
+		this.history.forEach((item, index) => {
+			document.write(`${index + 1}) ${item.checkNumber} * ${item.randNumber} = ${item.answer}, Correct answer: ${item.example}<br>`)
+		})
+		document.write(`The number of correct answers ${this.correctAnswers}, Incorrect ${this.fails}`)
+	}
+	playGame(){
+		while(confirm('Do you want to test your knowledge?')) {
+			this.checkAnswer()
+		} 
+		this.showHistory()
+		}
+	}
+let countChecker = new MultChecker(7)
+countChecker.playGame()
+	</script>
+</body>
+</html>

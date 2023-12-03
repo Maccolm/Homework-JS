@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Array operations</title>
+</head>
+<body>
+	<script>
+		// Створити клас, що дозволяє виконувати такі операції над масивами: знаходження кількості додатних, кількості від’ємних, кількість входжень деякого числа(статичні методи)
+			class ArrayOperations{
+				constructor(arr){
+					this.arr = arr
+				}
+				static getPositiveNumbers(arr) {
+					return arr.filter(positiveEl => positiveEl > 0)
+				}
+				static getNegativeNumbers(arr){
+					return arr.filter(negativNumber =>negativNumber < 0)
+				}
+				static mountSpecielNumber(arr) {
+					const userNum = parseInt(prompt('Type number'))
+					let counter = 0
+					for (const number of arr) {
+						if(number === userNum) counter ++
+					}
+					return `Number ${userNum} repeats ${counter} times in the array`
+				}
+				toString(){
+					return `${this.arr}`
+				}
+			}
+		const arr = [2,43,-23,34,0,-213,234, 324,-52, 34, 23, 34, 235, 34]
+				let ar1 = new ArrayOperations(arr)
+				let posnumbers = ArrayOperations.getPositiveNumbers(arr)
+				let negativNumbers = ArrayOperations.getNegativeNumbers(arr)
+				const repeatingNumbers = ArrayOperations.mountSpecielNumber(arr)
+				document.write(`Numbers of negative number: ${negativNumbers}<br>`)
+				document.write(`Numbers of negative number: ${posnumbers}<br>`)
+				document.write(`${repeatingNumbers}<br>`)
+	</script>
+</body>
+</html>

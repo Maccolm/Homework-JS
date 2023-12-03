@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Library</title>
+</head>
+<body>
+	<script>
+		//  Особиста бібліотека.Картотека домашньої бібліотеки: дані книги(автори(піб, рік народження, короткий опис), назва книги, жанр, видавництво(назва, реєстраційний номер, рік засування)).Реалізувати розділи бібліотеки(спеціальна література, хобі, домашнє господарство і т.д.), походження книги і наявність на даний час.Організувати додавання / вилучення книг та  вибір книг за назвою, за ПІБ автора, за видавництвом.
+
+			class Library {
+				constructor(){
+					this.books = []
+				}
+				addBook(book){
+					this.books.push(book)
+				}
+				removeBook(bookTitle){
+					const index = this.books.findIndex(book => book.title === bookTitle)
+					if (index !== -1)
+						this.books.splice(index, 1)
+				}
+				findBookByTitle(title){
+					return this.books.filter(book => book.title === title)
+				}
+				findBookByAuthor(authorSurame){
+					return this.books.filter(book => book.author.some(author => author.surname === authorSurame))
+				}
+				findBoobByPublisher(publisher){
+					return this.books.filter(book => book.publisher === publisher)
+				}
+				available(title){
+					const index = this.books.find(book => book.title === title)
+					if (index) return 'Available'
+						else return'Out of stock'
+				}
+				toString(){
+					return this.books
+				}
+			}
+			class AuthorBook {
+				constructor(firstName, surname, birthday, aboutShort){
+					this.firstName = firstName
+					this.surname = surname
+					this.birthday = birthday
+					this.about = aboutShort
+				}
+				get fullName(){
+					return this.firstName + ' ' + this.surname
+				}
+				set fullName(value){
+					let split = value.split(' ')
+					this.firstName = split[0]
+					this.surname = split[1]
+				}
+
+				toString(){
+					return `Author: ${this.fullName},  birthday: ${this.birthday}, About - ${this.about}<br><br>`
+				}
+			}
+			class Book {
+				constructor(title, genre, publisher, author){
+					this.title = title
+					this.genre = genre
+					this.publisher = publisher
+					this.author = author
+					this.available = true
+				}
+				toString(){
+					return `Name book: ${this.title}, Gerge: ${this.genre}, ${this.publisher}, ${this.author}`
+				}
+			}
+			class Publisher{
+				constructor(name, registrationNumber, createdYear){
+					this.name = name
+					this.registrationNumber = registrationNumber
+					this.createdYear = createdYear
+				}
+				toString(){
+					return `Publisher name: ${this.name}, Registration Number: ${this.registrationNumber}, Year: ${this.createdYear}<br>`
+				}
+			}
+			const author1 = new AuthorBook('Name1','surname1', 1997, 'something about book')
+			const author2 = new AuthorBook('Name2','surname2', 2000, 'something abouts sda')
+			const author3 = new AuthorBook('Name3','surname3', 2002, 'something  sda')
+
+			const publisher = new Publisher('Publish your dream', 544754, 2012)
+
+			const  book1 = new Book('title1', 'Жанр1', publisher, [author1])
+			const  book2 = new Book('title2', 'Жанр2', publisher, [author2])
+			const  book3 = new Book('title3', 'Жанр1', publisher, [author1])
+			const  book4 = new Book('title4', 'Жанр3', publisher, [author3])
+
+			const library = new Library()
+			library.addBook(book1)
+			library.addBook(book2)
+			library.addBook(book3)
+			library.addBook(book4)
+			library.removeBook('title2')
+			document.write(library.books)
+			document.write(library.available('title2'))
+
+			document.write(library.findBookByTitle('title2'))
+			document.write(library.findBookByAuthor('surname1'))
+			document.write(library.findBoobByPublisher(publisher))
+		
+
+	</script>
+</body>
+</html>

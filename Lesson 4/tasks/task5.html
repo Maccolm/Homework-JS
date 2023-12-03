@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//Задача 5
+			// Вивести таблицю 
+			//1.Вводимо необхідні дані
+			const numColumn = 9
+			let num = 1
+				
+//2. Знаходимо результат та виводимо
+			document.write(`<table border=1px solid black>`)
+				
+				for (let i = 0; i < numColumn; i++) {
+					if ( num %3===0) {
+						document.write(`<td>${num}</td><tr>`)
+						num++
+					}else {
+						document.write(`<td>${num}<td>`)
+						num++
+					}
+				}
+							
+			document.write(`</table>`)
+				</script>
+</body>
+</html>

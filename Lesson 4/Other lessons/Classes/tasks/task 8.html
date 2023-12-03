@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Duty Student</title>
+</head>
+<body>
+	<script>
+			//Розробити клас ПІБ студента і зробити його черговим випадковим чином
+
+		class DutyStudent {
+			static currentDutyStudentObj
+			constructor(studentList) {
+				if(DutyStudent.currentDutyStudentObj) 
+					return DutyStudent.currentDutyStudentObj
+				
+				this.studentList = studentList
+				this.currentDutyStudent = this.getRundomStudent()
+				
+				DutyStudent.currentDutyStudentObj = this	
+			}
+
+			getRundomStudent(){
+				const randomIndex = Math.floor(Math.random() * this.studentList.length)
+				return this.studentList[randomIndex]
+			}
+			toString(){
+				return `Duty: ${this.currentDutyStudent}`
+			}
+		}
+		let studentList = ['olga', 'Vitalii', 'Linea', 'Lin', 'ksenia', 'peter','Alina', 'Elisabeth','Alexandr']
+		let s1 = new DutyStudent(studentList)
+		let s2 = new DutyStudent(studentList)
+		document.write(`${s1} <br>`)
+		document.write(`${s2} <br>`)
+	</script>
+</body>
+</html>

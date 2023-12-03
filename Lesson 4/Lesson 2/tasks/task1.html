@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//Знайти суму, добуток та частку двох дійсних чисел. Результат вивести у формі таблиці
+		//Вводимо необхідні дані
+			let firstNumber = parseInt(prompt('Введіть перше число', '0'));
+			let secondNumber = parseInt(prompt('Введіть друге число', ''));
+	
+		//2. Знаходимо результат
+			let summNumbers = firstNumber + secondNumber;
+			let productNumbers = firstNumber * secondNumber;
+			let fractionNumbers = firstNumber / secondNumber;
+		
+		//3.Виводимо результат
+			document.write(`<table>
+				<tr> 
+					<th>Перше число</th>
+					<th>Друге число</th>
+					<th>Дія</th>
+					<th>Результат</th>
+				</tr>
+				<tr>
+					<td>${firstNumber}</td>	
+					<td>${secondNumber}</td>	
+					<td>+</td>	
+					<td>${summNumbers.toFixed(0)}</td>	
+				</tr>
+				<tr>
+					<td>${firstNumber}</td>	
+					<td>${secondNumber}</td>	
+					<td>*</td>	
+					<td>${productNumbers.toFixed(6)}</td>	
+				</tr>
+				<tr>
+					<td>${firstNumber}</td>	
+					<td>${secondNumber}</td>	
+					<td>/</td>	
+					<td>${fractionNumbers.toFixed(2)}</td>	
+				</tr>
+					</table>`)
+
+			
+
+
+	</script>
+</body>
+</html>

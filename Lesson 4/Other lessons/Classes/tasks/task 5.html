@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TBankomat</title>
+</head>
+<body>
+	<script>
+		//  Створити клас TBankomat, який моделює роботу банкомата.Клас повинен містити поля для зберігання кількості купюр кожного із номіналів від 5 до 200 гривень.Реалізувати методи знаходження максимальної та мінімальної сум, які може видати банкомат, та метод зняття деякої суми.
+	class TBankomat {
+		constructor(fiveGrn, tenGrn, twentyGrn, fiftyGrn, hundretGrn, twoHunGrn){
+		this.money = {
+		5 : fiveGrn,
+		10 : tenGrn,
+		20 : twentyGrn,
+		50 : fiftyGrn,
+		100 : hundretGrn,
+		200 : twoHunGrn 
+			}
+			this.lastWithdraw = null
+		}
+		//Знаходження максимальної сумми
+		getMaximalSum(){
+			let totalMount = 0
+
+			for(const nominal in this.money) {
+				totalMount += this.money[nominal] * parseInt(nominal)
+			}
+			return totalMount
+		}
+		getMinimalSum(){
+			for(const nominal in this.money) {
+				if(this.money[nominal] > 0) {
+				return parseInt(nominal)
+				}
+			return null
+			}
+		}
+		withdrawMoney(amount){
+			let amountToWithdraw = amount
+			const withdrawBills = {}
+
+			const nominals = [200,100,50,20,10,5]
+
+			nominals.forEach(nominal => {
+				const count = Math.min(Math.floor(amountToWithdraw / nominal), this.money[nominal])
+				if(count > 0) {
+					withdrawBills[nominal] = count
+					amountToWithdraw -= count * nominal
+					this.money[nominal] -= count
+				}
+			})
+			if(amountToWithdraw === 0) { 
+				document.write(`Successful withdrawal of funds , ${amount} <br>`)
+			} else { 
+				document.write(`doesn't have this nominal<br>`)}
+		}
+		toString(){
+			let result = 'Це банкомат'
+			const maxSum = this.getMaximalSum()
+			result += `Максимальна сумма коштів в банкоматі ${maxSum} <br>`
+			
+			const minSum = this.getMaximalSum()
+			result += `Мінімальний номінал в банкоматі ${minSum}<br>`
+
+			const withdraw = this.withdrawMoney(200)
+			result += withdraw
+			if( this.lastWithdraw) {
+				return `Ви успішно зняли ${this.lastWithdraw.amount}`
+			}
+		}
+	}
+
+	let bank = new TBankomat(1,5,0,3,4,2)
+	// bank.withdrawMoney(200)
+	const withdrawMount = parseInt(prompt(`In bankomat ${bank.getMaximalSum()}$ How much you want to withdraw`))
+	bank.withdrawMoney(withdrawMount)
+	document.write(`Maximal Summ in Bankomat is ${bank.getMaximalSum()}<br>`)
+	document.write(`Minimal Nominal in Bankomat is ${bank.getMinimalSum()}<br>`)
+	
+	</script>
+</body>
+</html>

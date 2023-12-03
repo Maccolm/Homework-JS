@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+	//  Задача 2. Розробити функцію, у яку передають об’єкт(день, місяць, рік).Визначити, який буде рік через N місяців.
+
+let userDate = {
+	day: 1,
+	month: 1,
+	year: 24
+}
+function getShiftedMonth({month, year}, N) {
+	const countedMonth =  (year * 12 + month - 1) + N
+	 const countedYear =  Math.floor( countedMonth / 12)
+	 const newMonth = ((countedMonth % 12) + 12) % 12 + 1
+	return {
+		month: newMonth,
+		year: countedYear 
+	}
+}
+	
+
+let N = parseInt(prompt('Enter the number of months, now is day: 1, month: 1, year: 24'))
+const shiftedMonth = getShiftedMonth(userDate, N)
+alert(`In ${N} months it will be Year: ${shiftedMonth.year} and month: ${shiftedMonth.month}`)
+	</script>
+</body>
+</html>
