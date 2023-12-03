@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Firm</title>
+</head>
+<body>
+	<script>
+		// Задача 3. Об’єкт “Фірма” (використати члени - класи)
+// 	поля
+// назва фірми;
+// дата заснування(рік, місяць);
+// 	послуги(назва послуги, вартість, термін виконання);
+// адреси філіалів(країна, місто, вулиця, номер будинку);
+// 	методи
+// визначення кількості років існування фірми;
+// виведення всіх філіалів фірми у вказаному місті;
+// виведення на екран послуг, що можуть бути виконані за вказану суму грошей та вказаний термін часу;
+	
+class Firma{
+	constructor(name, initData, addressList, serviseList){
+		this.name = name
+		this.createDate = new CreateDate(initData)
+		this.adresses = new Adresses(addressList)
+		this.services = new Services(serviseList)
+	}
+	toString(){
+		return `Company name: ${this.name} <br>Creation date: ${this.createDate}, Filials: ${this.adresses} Services ${this.services}`
+	}
+}
+class CreateDate{
+	constructor(year, month, currentYear = 2023){
+		this.year = year
+		this.month = month
+		this.currentYear = currentYear
+	}
+	ageOfCompany(){
+		return this.currentYear - this.year
+	}
+	get age(){
+		return this.ageOfCompany()
+	}
+	toString(){
+		return `Year: ${this.year}, month: ${this.month} <br>Company age: ${this.age}`
+	}
+}
+class Services {
+	constructor(name, cost, timeFrame){
+		this.name = name
+		this.cost = cost
+		this.timeFrame = timeFrame
+	}
+
+	static filterServices(serviseList, budget, timeFrame){
+		const filteredServices = serviseList.filter(service => service.cost <= budget && service.timeFrame <= timeFrame)
+		return filteredServices
+	}
+	get allServicer(){
+		return `<br>Name: ${this.name}, cost: ${this.cost}, days: ${this.timeFrame}`
+	}
+	toString(){
+		return this.allServicer
+	}
+}
+class Adresses{
+	constructor(country, city, street, number){
+		this.country = country
+		this.city = city
+		this.street = street
+		this.number = number
+	}
+	static filials_In_The_City(addressList, city){
+		const filteredFilials = addressList.filter(filial => filial.city === city)
+		return filteredFilials
+	}
+	toString(){
+		return `<br>Country: ${this.country}, city: ${this.city}, street: ${this.street}, house: ${this.number}`
+	}
+}
+const serv1 = new Services("Web Development", 5000,  3)
+const serv2 = new Services("Graphic Design", 2000, 2)
+const serv3 = new Services("Marketing", 3000, 1)
+const serviseList = [serv1, serv2, serv3]
+
+const filter = Services.filterServices(serviseList, 5000, 1)
+
+const adress1 = new Adresses('Sweden', 'Helsingborg', 'Skaragatan', 76)
+const adress2 = new Adresses('Sweden','Helsingborg','Staderna', 144)
+const adress3 = new Adresses('USA','New-York','WallStreet',3)
+const addressList = [adress1, adress2, adress3]
+
+const date = new CreateDate(2000, 5)
+
+let f1 = new Firma('Web-Assamblation', date, addressList, serviseList)
+document.write(f1)
+	</script>
+</body>
+</html>

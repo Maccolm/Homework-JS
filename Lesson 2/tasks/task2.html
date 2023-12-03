@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//Дано рік народження (дата: 1 січня) та поточний рік. Знайти кількість років.
+		//Вводимо необхідні дані
+
+		const dateOfBirth = new Date('January 01, 2023');
+		const dateNow = new Date('February 02, 2023');
+
+		let numbersOfYears = dateNow - dateOfBirth;
+		
+		document.write(`<h1>${numbersOfYears}</h1>`);
+
+	</script>
+</body>
+</html>

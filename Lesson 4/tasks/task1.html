@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//Задача 1
+		//Вивести з використанням циклів маркований список з випадковими числами (1-100). Кількість випадкових чисел
+
+		//1.Вводимо необхідні дані
+		let userCounterNumbers = parseInt(prompt('Введіть кількість чисел, які хочете вивести рандомно'))
+		const minRandomNum = 1,
+				maxRandomNum = 100;
+		//2. Знаходимо результат та виводимо
+		document.write(`<ul>`)
+		for (let i = 0; i < userCounterNumbers; i++) {
+			 let mathRand = minRandomNum + Math.floor(Math.random() * (maxRandomNum - minRandomNum + 1))
+			 document.write(`<li>${mathRand}</li>`)
+			}
+			document.write(`</ul>`)
+
+	</script>
+</body>
+</html>

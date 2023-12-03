@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//1.Вводимо необхідні дані
+		const N = parseInt(prompt('Введіть кількість абзаців'))
+		//2. Знаходимо результат та виводимо
+		document.write(`<h1>Заголовок ${N}</h1>`)
+		for (let p = 0; p < N; p++) {
+			document.write(`<p>Розділ 2${N}, параграф ${p+1}</p>`)
+		}
+		document.write(`<hr>`)
+	</script>
+</body>
+</html>

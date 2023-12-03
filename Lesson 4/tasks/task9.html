@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//Користувач загадує число. комп’ютер намагається вгадати число користувача (використати confirm)
+		const minNum = 1,
+				maxNum = 10,
+				attempts = Infinity;
+			let attempt = 1
+			let askUser = confirm(`Загадайте число від 1 до 10 і я спробую його відгадати`)
+
+			//2. Знаходимо результат та виводимо
+			for (let i = 0; i < attempts; i++) {
+				let guess = minNum + Math.floor(Math.random() * (maxNum - minNum + 1))
+				let corretAnswer = confirm(`спроба ${i + 1}, Ваше число ${guess}`)
+				if (corretAnswer) {
+					alert(`Вітаю! Комп'ютер вгадав ваше число ${guess} за ${i + 1} спроб`)
+					break;
+				}
+			}
+	</script>
+</body>
+</html>

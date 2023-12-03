@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//Створити функцію, яка для 3 заданих чисел знаходить одночасно декілька результатів: кількість парних, кількість додатних, кількість більших за 100.
+
+		const firstUserNum = parseFloat(prompt('Enter the first number'))
+		const secondUserNum = parseFloat(prompt('Enter the second number'))
+		const thirdUserNum = parseFloat(prompt('Enter the third number'))
+
+		function calculating(num1, num2, num3) {
+			let evenNums = 0,
+				positiveNums = 0,
+				moreThan100 = 0;
+
+				if (num1 %2 ===0) evenNums++
+				if (num2 %2 ===0) evenNums++
+				if (num3 %2 ===0) evenNums++
+
+				if (num1 > 0) positiveNums++
+				if (num2 > 0) positiveNums++
+				if (num3 > 0) positiveNums++
+				
+				if (num1 > 100) moreThan100++
+				if (num2 > 100) moreThan100++
+				if (num3 > 100) moreThan100++
+
+				const Obj ={
+				 evenNums,
+				  positiveNums,
+				  moreThan100
+				}
+				return Obj
+		}
+		const numbersObj = calculating(firstUserNum, secondUserNum, thirdUserNum)
+		// const numbersString = JSON.stringify(numbersObj)
+
+		document.write(`Even numbers: ${numbersObj.evenNums}, Positive numbers: ${numbersObj.positiveNums}, Numbers greater than 100: ${numbersObj.moreThan100}`)
+	</script>
+</body>
+</html>

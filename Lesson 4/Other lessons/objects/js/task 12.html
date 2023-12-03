@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Obj Auto</title>
+</head>
+<body>
+	<script>
+//  Задача 2. Створити об’єкт «Авто».
+	// 	Авто
+
+
+	// 	Поля(властивості)
+	// 	Марка
+	// Розмір бака
+	// Кількість наявних літрів
+	// Кількість місць
+	// Кількість пасажирів
+	// 	Методи(дії)
+	// Заправка на вказану кількість літрів
+	// Виведення кількості пасажирів
+	// Додавання пасажирів
+	// Висадка пасажирів
+
+	let auto = {
+		// 	Поля(властивості)
+	// 	Марка
+		mark : 'Audi',
+	// Розмір бака
+		tankSize: 40,
+	// Кількість наявних літрів
+		currentFuel: 30,
+	// Кількість місць
+		avaiableSits: 4,
+	// Кількість пасажирів
+		passengers: 3,
+	// 	Методи(дії)
+	// Заправка на вказану кількість літрів
+		fillFuel : function(liters) {
+			if(liters + this.currentFuel < this.tankSize) {
+				this.currentFuel = liters + this.currentFuel
+			} else {
+				alert('It is too much')
+			}
+			alert(`Your tank is ${this.currentFuel} liters now`)
+		},
+	// Виведення кількості пасажирів
+		showNumberOfPPassangers : function () {
+			document.write(this.passengers)
+		},
+	// Додавання пасажирів
+		addPassangers: function(numbersPassanger) {
+			this.passengers + numbersPassanger > this.avaiableSits ? alert('Maximum seats exceeded') : this.passengers += numbersPassanger
+			alert(`It is ${this.passengers} passengers in the car for now`)
+		},
+	// Висадка пасажирів
+		takingOffPassangers : function(numbersPassanger) {
+			this.passengers - numbersPassanger < 0 ? alert('There are fewer passengers than indicated when disembarkingі') : this.passengers -= numbersPassanger
+		}
+	}
+	const fillFuel = parseInt(prompt('You have  30 liters in the tank(40 is maximum), for how much liters do you want to refuel the car?'))
+	auto.fillFuel(fillFuel)
+	
+	const addPass = parseInt(prompt(`You have ${auto.avaiableSits} seats in the car and ${auto.passengers} passengers already in the car. How many people do you want to add?` ))
+	auto.addPassangers(addPass)
+
+	const takePass = parseInt(prompt(`You have ${auto.passengers} passengers in the car. How mane passengers do you want to take off?`))
+	auto.takingOffPassangers(takePass)
+	document.write(`Fuel in the car: ${auto.currentFuel} liters<br/>`)
+	document.write(`Passengers in the car ${auto.passengers}`)
+
+	</script>
+</body>
+</html>

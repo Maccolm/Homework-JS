@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//Задача 4
+			// Вивести таблицю з 3 рядків і 7 стовпців
+			//1.Вводимо необхідні дані
+			const numColumn = 7,
+			 	numRow = 3 ;
+		//2. Знаходимо результат та виводимо
+		document.write(`<table>`)
+		for (let i = 0; i < numRow; i++) {
+			document.write(`<tr>`)
+			for (let j = 0; j < numColumn; j++) {
+				document.write(`<td>${j+1}</td>`)
+			}
+			document.write(`</tr>`)
+		}
+		document.write(`</table>`)
+	</script>
+</body>
+</html>
