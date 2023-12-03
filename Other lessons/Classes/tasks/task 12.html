@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Reminder</title>
+</head>
+<body>
+	<script>
+		// 3.Створити клас Нагадувач. Кожні вказані кількості секунд (використати setInterval) програма нагадує про якусь подію (це просто текст) і також виводиться порядковий номер скільки раз вже нагадування було. Зробити так, щоб неможна було зробити одночасно декілька об’єктів-нагадувачів. Методи зупинки таймера, метод зміни повідомлення без зупинки таймера.
+
+			class Reminder{
+				static news
+				constructor(text){
+					if(Reminder.news)
+						return Reminder.news
+					this.text = text
+					this.counter = 0
+
+					Reminder.news = this
+					this.intervalId = null //Додали змінну для зберігання ідентифікатора таймера
+				}
+				showTheNews(){
+					document.write(`${this.text}, previous news showed ${this.counter} times<br>`)
+					this.counter++
+				}
+
+				toString(){
+					return `${this.text}, ${this.counter}`
+				}
+				run(seconds){
+					this.intervalId = setInterval(() => {
+						this.showTheNews()
+						}, seconds * 1000
+					)
+				}
+				stop(){
+					clearInterval(this.intervalId)
+				}
+				 newText(news){
+					this.text = news
+				}
+			}
+			const rem1 = new Reminder('external news')
+			rem1.run(3)
+			setTimeout(() => {
+				rem1.newText('Here will be another news')
+			}, 10000)
+			setTimeout(() =>{
+				rem1.stop()
+			}, 15000)
+
+			rem1.Reminder.newText('This will be new news')
+	</script>
+</body>
+</html>

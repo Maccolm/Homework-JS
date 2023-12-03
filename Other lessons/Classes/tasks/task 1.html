@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		// Задача 5. Розробити клас «Керівник танців»
+			// 	Поля
+			// Масив імен хлопців
+			// Масив імен дівчат
+			// 	Методи
+			// Метод випадкового вибору імені хлопця
+			// Метод випадкового вибору імені дівчини
+			// Метод виведення пари для танців
+			// Метод run, який ініціює через кожні 5 секунд виведення нової пари для танців
+			class DanceDirector {
+				constructor(boysNames, girlsNames) {
+					this.boys = boysNames,
+					this.girls = girlsNames
+				}
+				// Метод випадкового вибору імені хлопця
+				getRandomName(namesArray) {
+					const randomIndex = Math.floor(Math.random() * namesArray.length)
+					return namesArray[randomIndex]
+				}
+				randomBoyName() {
+					const boyName = this.getRandomName(this.boys)
+					return boyName
+				}
+				// Метод випадкового вибору імені дівчини
+				randGirlName() {
+					const girlName = this.getRandomName(this.girls)
+					return girlName
+				}
+				// Метод виведення пари для танців
+				generationCouple() {
+					const boyName = this.randomBoyName()
+					const girlName = this.randGirlName()
+					alert(`${boyName} i ${girlName}`)
+				}
+				run(){
+					setInterval(() => this.generationCouple(), 5000)
+
+				}
+			}
+			let boysNames = ['Коля', 'Валя', 'Віталя', 'Ігорь', 'Саша', 'Максим', 'Женя', 'Міша', 'Йохан', 'Мікель', 'Петро', 'Віктор']
+			let girlsNames = ['Оксана', 'Дарья', 'Аліка', 'Вікторія', 'Женя', 'Ксенія', 'Юлія', 'Лін', 'Наташа', 'Анастасія', 'Елізабет']
+			let coupleMaker = new DanceDirector(boysNames, girlsNames)
+			coupleMaker.run()
+
+	</script>
+</body>
+</html>

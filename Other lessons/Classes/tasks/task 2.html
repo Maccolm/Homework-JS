@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>TDate</title>
+</head>
+<body>
+	<script>
+		 class TDate {
+				constructor(day, month, year) {
+					this.days = day
+					this.month = month
+					this.year = year
+				}
+				increaseDays(val){
+					this.days += val // 65
+					this.increaseMonth(Math.floor(this.days / 30)) //increaseMonth(2)
+					this.days = this.days  % 30
+
+					if(this.days === 0) this.days = 1
+				}
+				increaseMonth(val) {
+					this.month += val
+					this.increaseYear(Math.floor(this.month / 12))
+					this.month =  this.month % 12
+
+					if(this.month === 0) this.month = 1
+				}
+				increaseYear(val) {
+					this.year += val
+				}
+				decreaseDays(val){
+					this.decreaseMonth(Math.floor(val / 30)) // віднімаємо повні місяці
+					const daysToSubstract = val % 30 //залишаємо остачу від повних місяців, так як повні вже відняли
+					if (this.days <= daysToSubstract) {
+						this.decreaseMonth(1)
+						this.days = 30 - (daysToSubstract - this.days)
+					} else {
+						this.days -= daysToSubstract
+					}
+				}
+				decreaseMonth(val) {
+					this.decreaseYear(Math.floor(val / 12))
+					const monthToSubstract = val % 12
+
+					if(this.month <= monthToSubstract) {
+						this.decreaseYear(1)
+						this.month = 12 - (monthToSubstract - this.month)
+					} else {
+						this.month -= monthToSubstract
+					}
+				}
+				decreaseYear(val)  {
+						this.year -= val
+					}
+					до
+				toString(){
+					return `day : ${this.days}, month: ${this.month}, year: ${this.year}`
+				}
+			}
+			let date = new TDate(19, 8, 23)
+			const userInput = prompt('Write "+" to add a date and "-" to subtract')
+
+			if(userInput === "+") {
+				const inputDays = parseInt(prompt(`Number of days`))
+				date.increaseDays(inputDays)
+				const inputMonth = parseInt(prompt('Month'))
+				date.increaseMonth(inputMonth)
+				const inputYears = parseInt(prompt('Years'))
+				date.increaseYear(inputYears)
+			} else if (userInput === "-"){
+				const inputDays = parseInt(prompt(`Number of days`))
+				date.decreaseDays(inputDays)
+				const inputMonth = parseInt(prompt('Month'))
+				date.decreaseMonth(inputMonth)
+				const inputYears = parseInt(prompt('Years'))
+				date.decreaseYear(inputYears)
+			} else {
+				alert('Type correct value')
+			}
+			document.write(date)
+
+	</script>
+</body>
+</html>

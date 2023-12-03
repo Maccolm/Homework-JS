@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Werehouse</title>
+</head>
+<body>
+	<script>
+			// Склад.База товарів, які зберігаються на складі: назва товару, одиниця виміру, кількість, фірма виробник(назва, реєстраційний номер).Організувати реєстрацію / відвантаження товарів, фільтрація за назвою товару, фільтрація за назвою фірми
+				class WareHouse {
+					constructor(productList){
+						this.products = productList
+					}
+					registrateProduct(newProduct) {
+						this.products.push(newProduct)
+					}
+					filterProductByName(name){
+						return document.write(this.products.filter(items => items.name === name))
+					}
+					filterProductByCompanyName(companyName){
+						return document.write(this.products.filter(items => items.manufactureName === companyName))
+					}
+					shipmentProduct(productName, mount){
+						const product = this.products.find(item => item.name === productName)
+
+						if(product){
+							if(mount > product.mount){
+								throw new Error('Mount is not enough')
+							}
+							product.mount -= mount
+						} else {
+							throw new Error('Product is not find')
+							}
+					}
+
+					toString(){
+						return `${this.products}`
+					}
+				}
+
+
+				class Product {
+					#name
+					#mount
+					#ManifacturerName
+					#RegistrationNumber
+					constructor(name, unitOfMeasure, mount, manufactureName, registrationNumber){
+						this.name = name
+						this.unitOfMeasure = unitOfMeasure
+						this.mount = mount
+						this.manufactureName = manufactureName
+						this.registrationNumber = registrationNumber
+					}
+					get name(){
+						return this.#name
+					}
+					get mount() {
+						return this.#mount
+					}
+					get manifacturerName(){
+						return this.#ManifacturerName
+					}
+					get registrationNumber(){
+						return this.#RegistrationNumber
+					}
+					set name(val){
+						if(val.length <= 0) throw new Error('Name cannot be empty')
+						this.#name = val
+					}
+					set manifacturerName(val){
+						if(val.length <= 0) throw new Error('Name cannot be empty')
+							this.#ManifacturerName = val
+					}
+
+					set registrationNumber(val){
+						if(val <= 0) throw new Error('Registration Number cannot be empty')
+							this.#RegistrationNumber = val
+					}
+					set mount(val){
+						if(val <= 0) throw new Error('Product cannot be empty or negative number')
+						this.#mount = val
+					}
+
+					toString(){
+						return `Name: ${this.name},\n Measure: ${this.unitOfMeasure},\n mount: ${this.mount}, Manufacturer's name: ${this.manufactureName},\n Registration number: ${this.registrationNumber}<br>`
+					}
+				}
+
+				const productList = [
+				new Product('Iphone 15',  'gigabyte', 2000, 'China',  25869),
+				new Product('MacBook 15', 'gigabyte', 180, 'China', 34532)
+				]
+				let pr1 = new WareHouse(productList)
+				pr1.registrateProduct(new Product('Glasses', 'optical', 50000, 'Sweden', 11111))
+				pr1.shipmentProduct('MacBook 15',100)
+				document.write(pr1)
+
+	</script>
+</body>
+</html>

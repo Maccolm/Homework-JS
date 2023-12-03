@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Teams</title>
+</head>
+<body>
+	<script>
+		// Дано список студентів (Імя та кількість балів). По черзі вибирають дві команди. Виграє той, у кого середній бал менше. Статистичний метод порівняня
+			class Student {
+				constructor(name, score){
+					this.name = name
+					this.score = score
+				}
+				static getAverageScore(student1, student2){
+					return (student1.score + student2.score) / 2
+				}
+				toString() {
+					return `${this.name} - ${this.score}`
+				}
+			}
+			class Team {
+				constructor(student1, student2){
+					this.student1 = student1
+					this.student2 = student2
+				}
+				get averageScore(){
+					return Student.getAverageScore(this.student1, this.student2)
+				}
+				static getWinnerTeam(team1, team2){
+					if(team1.averageScore < team2.averageScore) return team1.toString()
+					if(team1.averageScore > team2.averageScore) return team2.toString()
+					return `Draw`
+				}
+				toString(){
+					return `Team: <br>${this.student1}<br> ${this.student2}`
+				}
+			}
+			class Game{
+				constructor(studentList){
+					this.studentList = studentList
+				}
+				getRandomStudent(currentStudentList){
+					const studentIndex = Math.floor(Math.random() * currentStudentList.length)
+					const student = currentStudentList[studentIndex]
+					currentStudentList.splice(studentIndex, 1)
+					return student
+					// currentStudentList.filter((item)=>item !== student)
+				}
+				play(){
+					let currentStudentList = [...this.studentList]
+					let st1 = this.getRandomStudent(currentStudentList)
+					let st2 = this.getRandomStudent(currentStudentList)
+					const team1 = new Team(st1, st2)
+
+					st1 = this.getRandomStudent(currentStudentList)
+					st2 = this.getRandomStudent(currentStudentList)
+					const team2 = new Team(st1, st2)
+
+					const winner = Team.getWinnerTeam(team1, team2)
+					document.write(winner)
+				}
+			}
+
+			const studentList = [
+				new Student('Maccolm', 54),
+				new Student('Maccolm6', 21),
+				new Student('Maccolm5', 64),
+				new Student('Maccolm4', 43),
+				new Student('Maccolm3', 42),
+				new Student('Maccolm2', 32),
+				new Student('Maccolm1', 21),
+			]
+
+			const game = new Game(studentList)
+			game.play()
+	</script>
+</body>
+</html>
