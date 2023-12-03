@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Table</title>
+</head>
+<body>
+	<script>
+		class GetRandomTable{
+			constructor(rows, columns, minV = 0, maxV = 10) {
+				this.rows = rows
+				this.columns = columns
+				this.minV = minV
+				this.maxV = maxV
+				this.dataTable = this.getRandomArray()
+			}
+			getRandomNumber(){
+				return this.minV + Math.floor(Math.random() * (this.maxV - this.minV +1))
+			}
+			getRandomArray(){
+				const arr = []
+				for (let r = 0; r < this.rows; r++) {
+					let row = []
+					for (let column = 0; column < this.columns; column++) {
+						row.push(this.getRandomNumber())
+					}
+					arr.push(row)
+				}
+				return arr
+				}
+				get maxNumber(){
+					return Math.max(...this.dataTable.flat())
+				}
+				get minNumber(){
+					return Math.min(...this.dataTable.flat())
+			}
+			render(containedId) {
+				const table = document.createElement('table')
+				for (const row of this.dataTable) {
+					const tr = document.createElement('tr')
+					for (const el of row) {
+						const td = document.createElement('td')
+						td.innerText = el
+						if(el === this.maxNumber) td.classList.add('green')
+						if(el === this.minNumber) td.classList.add('red')
+						tr.append(td)
+					}
+					table.append(tr)
+				}
+				document.querySelector(containedId).append(table)
+			}
+	}
+		window.onload = function(){
+			let t = new GetRandomTable(4,5)
+	 		t.render('.container')
+			let b = new GetRandomTable(20,15, 12, 50)
+			b.render('.second')
+		}
+		
+	 </script> 
+	 <div class="container"></div>
+	 <hr>
+	 <div class="second"></div>
+	 <style>
+		 .green{
+			background-color: green;
+		}
+		.red{
+			background-color: red;
+		} 
+	</style>
+
+</body>
+</html>

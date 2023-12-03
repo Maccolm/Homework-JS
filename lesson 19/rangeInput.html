@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		class RangeInput {
+			constructor(title, minValue, maxValue) {
+				this.title = title
+				this.minValue = minValue
+				this.maxValue = maxValue
+			}
+			checkValue(){
+				const currentValue = parseInt(this.inp.value)
+				if(currentValue >= this.minValue && currentValue <= this.maxValue)
+					this.inp.style.backgroundColor = 'green'
+				else
+					this.inp.style.backgroundColor = 'red'
+			}
+			render(containerClass){
+				const label = document.createElement('label')
+				label.innerText = this.title
+
+				this.inp = document.createElement('input')
+				label.append(this.inp)
+				this.inp.onchange = this.checkValue.bind(this)
+
+				const targetContainer = document.querySelector(containerClass)
+				targetContainer.append(label)
+			}
+		}
+		window.onload = function(){
+		const rInp = new RangeInput('Аліці отак років', 23, 40)
+		rInp.render('.container')
+		}
+	</script>
+	<div class="container"></div>
+</body>
+</html>

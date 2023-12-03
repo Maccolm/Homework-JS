@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tester</title>
+</head>
+<body>
+	<style>
+		td,th {
+			border: 1px solid black;
+		}
+		li{
+			width: 200px;
+			line-height: 25px;
+			cursor: pointer;
+			border: 1px solid rgb(71, 75, 69);
+		}
+		li:hover{
+			background-color:rgb(97, 105, 92);
+			transition: all 0.4s ease 0s;
+		}
+		</style>
+	<script>	
+	// Задача.Тестер з історією.Є набір запитань з варіантами відповіді.Потрібно випадковим чином задавати питання і перевіряти відповіді.Загальний результат та історію(запитання, відповідь користувача та правильна відповідь) у формі таблиці виводити нижче.
+
+	
+class Tester {
+	constructor(questionsList){
+		this.questionsList = questionsList
+		this.currentQuestion = null
+		this.history = []
+		this.counterCorrectAnswers = 0
+	}
+	getRandomQuestion(){
+		const randomIndex = Math.floor(Math.random() * this.questionsList.length)
+		const randomObj = this.questionsList[randomIndex]
+		this.questionsList.splice(randomIndex, 1)
+		return randomObj
+	}
+	optionClick(optId){
+		alert(optId == this.currentQuestion.corectAnswerId)
+		if(optId === this.currentQuestion.corectAnswerId) this.counterCorrectAnswers += 1
+		console.log(this.counterCorrectAnswers)
+
+		const userAnswer = this.currentQuestion.options.find((item) => item.id == optId).text
+		const correctAnswer = this.currentQuestion.options.find((item) => item.id == this.currentQuestion.corectAnswerId).text
+		this.history.push({
+			question: this.currentQuestion.question,
+			userAnswer: userAnswer,
+			correctAnswer: correctAnswer
+		})
+		this.next()
+	}
+	renderQuestionForm(){
+		const questionContainer = document.createElement('div')
+		questionContainer.className = 'question-container'
+
+		const questionFormContainer = document.createElement('h3')
+		questionFormContainer.innerText = this.currentQuestion.question
+		questionContainer.append(questionFormContainer)
+
+		const optionsContainer = document.createElement('ol')
+		for (const opt of this.currentQuestion.options) {
+			const li = document.createElement('li')
+			li.innerText = opt.text
+			li.onclick = this.optionClick.bind(this, opt.id)
+			optionsContainer.append(li)
+		}
+		questionContainer.append(optionsContainer)
+		return questionContainer
+	}
+	getTableRow(dataArray, ellTag = 'td'){
+		const tr = document.createElement('tr')
+		for (const el of dataArray) {
+			const td = document.createElement(ellTag)
+			td.innerText = el
+			tr.append(td)
+		}
+		return tr
+	}
+	renderTableForm(){
+		const table = document.createElement('table')
+		const header = this.getTableRow(['Запитання','Відповідь','Правильна відповідь'],'th')
+		table.append(header)
+
+		for (const testRes of this.history) {
+			const row = this.getTableRow([testRes.question, 
+			testRes.userAnswer, 
+			testRes.correctAnswer
+		])
+			table.append(row)
+		}
+		return table
+	}
+	render(containerId){
+		const testerContainer = document.createElement('div')
+		this.counterCorrectAnswersForm = document.createElement('div')
+		this.historyContainer = document.createElement('div')
+		this.questionFormContainer = document.createElement('div')
+		
+		testerContainer.append(this.questionFormContainer)
+		testerContainer.append(this.historyContainer)
+		testerContainer.append(this.counterCorrectAnswersForm)
+		const targetContainer = document.getElementById(containerId)
+		targetContainer.append(testerContainer)
+		this.next()
+	}
+	next(){
+		this.currentQuestion = this.getRandomQuestion()
+		this.questionFormContainer.innerHTML = ''
+		this.questionFormContainer.append(this.renderQuestionForm())
+		this.counterCorrectAnswersForm.innerHTML = ''
+		this.counterCorrectAnswersForm.append('Правильні відповіді: ',this.counterCorrectAnswers)
+		
+		this.historyContainer.innerHTML = ''
+		this.historyContainer.append(this.renderTableForm())
+	}
+}
+window.onload = function(){
+	const t1 = new Tester(testSet)
+	t1.render('container')
+}
+	const testSet = [
+		{
+			question: 'Яка столиця Франції?',
+			options: [
+				{
+					id: 1,
+					text: 'Париж',
+				},
+				{
+					id: 2,
+					text: 'Лондон',
+				},
+				{
+					id: 3,
+					text: 'Берлін',
+				},
+			],
+			corectAnswerId: 1,
+		},
+		{
+			question: 'Як називається найбільша планета в Сонячній системі?',
+			options: [
+				{
+					id: 1,
+					text: 'Земля',
+				},
+				{
+					id: 2,
+					text: 'Марс',
+				},
+				{
+					id: 3,
+					text: 'Юпітер',
+				},
+			],
+			corectAnswerId: 3,
+		},
+		{
+			question: ' Яка тварина є символом Олімпійських ігор?',
+			options: [
+				{
+					id: 1,
+					text: 'Сова',
+				},
+				{
+					id: 2,
+					text: 'Ведмідь',
+				},
+				{
+					id: 3,
+					text: 'Лев',
+				},
+			],
+			corectAnswerId: 3,
+		},
+		{
+			question: 'Яка країна славиться своєю сирною пастою лазанья?',
+			options: [
+				{
+					id: 1,
+					text: 'Італія',
+				},
+				{
+					id: 2,
+					text: 'Іспанія',
+				},
+				{
+					id: 3,
+					text: 'Греція',
+				},
+			],
+			corectAnswerId: 1,
+		},
+		{
+			question: 'Яке число вважається щасливим в багатьох культурах?',
+			options: [
+				{
+					id: 1,
+					text: '13',
+				},
+				{
+					id: 2,
+					text: '7',
+				},
+				{
+					id: 3,
+					text: '3',
+				},
+			],
+			corectAnswerId: 2,
+		},
+		{
+			question: 'Яка мова є найпоширенішою в світі за кількістю носіїв?',
+			options: [
+				{
+					id: 1,
+					text: 'Англійська',
+				},
+				{
+					id: 2,
+					text: 'Іспанська',
+				},
+				{
+					id: 3,
+					text: 'Китайська',
+				},
+			],
+			corectAnswerId: 3,
+		},
+		{
+			question: 'Яка річка є найдовшою на Землі?',
+			options: [
+				{
+					id: 1,
+					text: 'Ніл',
+				},
+				{
+					id: 2,
+					text: 'Амазонка',
+				},
+				{
+					id: 3,
+					text: 'Міссісіпі',
+				},
+			],
+			corectAnswerId: 1,
+		},
+		{
+			question: ' Яка гора вважається найвищою на світі?',
+			options: [
+				{
+					id: 1,
+					text: 'Ельбрус',
+				},
+				{
+					id: 2,
+					text: 'Альпи',
+				},
+				{
+					id: 3,
+					text: 'Гімалаї',
+				},
+			],
+			corectAnswerId: 3,
+		},
+		{
+			question: 'Яка рослина є символом Ірландії?',
+			options: [
+				{
+					id: 1,
+					text: 'Трюфель',
+				},
+				{
+					id: 2,
+					text: 'Червона троянда',
+				},
+				{
+					id: 3,
+					text: 'Трюба',
+				},
+			],
+			corectAnswerId: 2,
+		},
+	]
+
+	</script>
+	<div id="container"></div>
+</body>
+</html>

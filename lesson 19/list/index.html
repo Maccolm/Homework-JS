@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>list</title>
+</head>
+<body>
+	<style>
+		.item{
+			display: flex;
+			width: 190px;
+			justify-content: space-between;
+			margin: 5px;
+			text-align: center;
+			border: 1px solid gray;
+			border-radius: 6px;
+			padding: 2px;
+		}
+		.item div{
+			margin: auto auto auto 5px;
+		}
+		#container{
+			display: flex;
+			gap: 10px;
+		}
+		.list-box{
+			display: flex;
+			flex-direction: column;
+			border: 2px solid gray;
+			border-radius: 13px;
+			flex: 1 0 190px;
+		}
+		.common-list-container{
+			display: flex;
+			flex-direction: column;
+			
+		}
+		.selected-list-container{
+			display: flex;
+			flex-direction: column;
+		}
+		.selected-list{
+			border: 2px solid gray;
+			border-radius: 13px;
+			flex: 1 1 190px;
+		}
+		button{
+			background-color: #fff;
+			padding-right: 3px;
+			border: 0;
+			height: 35px;
+			width: 60px;
+			cursor: pointer;
+		}
+		button img {
+			height: 30px;
+			width: 50px;
+		}
+		.hidden{
+			visibility: hidden;
+		}
+	</style>
+	<script>
+			class Competition {
+				constructor(sportList){
+					this.sportList = sportList
+					this.greenArrowSrc = './img/green.png'
+					this.redArrowSrc = './img/red.png'
+					this.listBox = document.createElement('div')
+					this.selectedListContainer = document.createElement('div')
+				}
+				renderAllList(){
+					const commonListContainer = document.createElement('div')
+					commonListContainer.className = 'common-list-container'
+
+					const header = document.createElement('div')
+					header.innerText = 'Загальний список'
+					commonListContainer.append(header)
+
+					this.listBox.className = 'list-box'
+					const headerSelected = document.createElement('div')
+					headerSelected.innerText = 'Обрані для змагання'
+					this.selectedList = document.createElement('div')
+					this.selectedList.className = 'selected-list'
+					this.selectedListContainer.append(headerSelected)
+					this.selectedListContainer.append(this.selectedList)
+
+					for(const name of this.sportList) {
+						this.item = document.createElement('div')
+						this.item.className = 'item'
+
+						const title = document.createElement('div')
+						title.innerText = name
+						this.item.append(title)
+
+						this.button = document.createElement('button')
+						this.button.className = 'move-button'
+						this.button.setAttribute('data-state', 'not-selected')
+						const img = document.createElement('img')
+						img.src = this.greenArrowSrc
+						this.button.append(img)
+
+						this.item.append(this.button)
+						this.listBox.append(this.item)
+					}
+					commonListContainer.append(this.listBox)
+					return commonListContainer
+				}
+				moveButton(item){
+					const button = item.querySelector('.move-button')
+					const currentState = button.dataset.state
+
+					if(currentState === 'not-selected'){
+						this.selectedList.append(item)
+						button.querySelector('img').src = this.redArrowSrc
+						button.dataset.state = 'selected'
+					} else {
+						this.listBox.append(item)
+						button.querySelector('img').src = this.greenArrowSrc
+						button.dataset.state = 'not-selected'
+					}
+				}
+				render(containerId){
+					const targetContainer = document.getElementById(containerId)
+					
+					this.selectedListContainer.className = 'selected-list-container'
+					this.allList = this.renderAllList()
+					targetContainer.append(this.allList)
+					targetContainer.append(this.selectedListContainer)
+					
+					const allButtons = document.querySelectorAll('.move-button')
+					allButtons.forEach(button => {
+						button.addEventListener('click', ()=>this.moveButton(button.closest('.item')) )
+					})
+
+				}
+			}
+		window.onload = function (){
+			const list1 = new Competition(sportsmenList)
+			list1.render('container')
+		}
+		const sportsmenList = ['John Dep', 'John Yick', 'Sara Wik', 'Den Mir', 'Alan Wake', 'Kevin Mosa', 'Mola Bray']
+	</script>
+	<div id="container"></div>
+</body>
+</html>

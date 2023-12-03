@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Cards</title>
+</head>
+<body>
+	<style>
+		#container{
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.card-container{
+			padding: 10px;
+			width: 180px;
+			border: 1px solid gray;
+		}
+		.card-container:hover{
+			cursor: pointer;
+		}
+		.header-container{
+			padding: 5px;
+			padding-left: 12px;
+			padding-right: 12px;
+			display: inline-block;
+			margin: 0 auto 20px 0;
+			background-color: orange;
+			color: #FFF;
+			border-radius: 15px;
+
+			/* margin-bottom: 20px; */
+		}
+		.sale{
+			background-color: red;
+		}
+		.img-container{
+			display: block;
+			margin-bottom: 15px;
+
+		}
+		.card-image{
+			max-width: 150px;
+			max-height: 150px;
+		}
+		.title-container{
+			margin-bottom: 15px;
+		}
+		.price-container{
+			color: red;
+			font-size: 20px;
+			margin-bottom: 10px;
+		}
+		.selected {
+			border: 2px solid green;
+		}
+	</style>
+	<script>
+		class Cards {
+			constructor({header, imgSrc,title, price, id, sale}){
+				this.header = header
+				this.imgSrc = imgSrc
+				this.title = title
+				this.price = price
+				this.id = id
+				this.sale = sale
+			}
+			clicked(){
+				const allCards = document.querySelectorAll('.card-container')
+				allCards.forEach(card => card.classList.remove('selected'))
+
+				this.cardContainer.classList.add('selected')
+			}
+			render(containerId){
+				this.cardContainer = document.createElement('div')
+				this.cardContainer.className = 'card-container'
+				this.cardContainer.dataset.id = this.id
+				this.cardContainer.onclick = this.clicked.bind(this)
+				
+				//створюємо хеадер картки
+				const headerContainer = document.createElement('div')
+				headerContainer.className = 'header-container'
+				headerContainer.innerText = this.header
+				this.cardContainer.append(headerContainer)
+
+				if(this.sale) 
+					headerContainer.classList.add('sale')
+				
+				//Створюємо картку з картинкою
+				const imgContainer = document.createElement('div')
+				imgContainer.className = 'img-container'
+				
+				const img = document.createElement('img')
+				img.className = 'card-image'
+				img.src = this.imgSrc
+				imgContainer.append(img)
+				this.cardContainer.append(imgContainer)
+				
+				const titleContainer = document.createElement('div')
+				titleContainer.className = 'title-container'
+				titleContainer.innerText = this.title
+				this.cardContainer.append(titleContainer)
+				
+				const priceContainer = document.createElement('div')
+				priceContainer.className = 'price-container'
+				priceContainer.innerText = this.price
+				this.cardContainer.append(priceContainer)
+				
+				const targetContainer = document.getElementById('container')
+				targetContainer.append(this.cardContainer)
+				
+			}
+		}
+
+		const cardList = [
+			{
+				header: 'ТОП ПРОДАЖ',
+				imgSrc: './img/1.png',
+				title: 'Ноутбук крутий',
+				price: '30 999',
+				id: 1
+			},
+			{
+				header: 'ТОП ПРОДАЖ',
+				imgSrc: './img/2.png',
+				title: 'Крутий ноутбук',
+				price: '19 999',
+				id: 2,
+			},
+			{
+				header: 'АКЦІЯ',
+				imgSrc: './img/3.png',
+				title: 'Прикольний ноутбук',
+				price: '27 999',
+				id: 3,
+				sale: true
+			},
+			{
+				header: 'ТОП ПРОДАЖ',
+				imgSrc: './img/4.png',
+				title: 'Макбууууууууук який в мене колись був',
+				price: '47 999',
+				id: 4
+			}
+	
+	]
+
+	window.onload = function(){
+		for(const card of cardList){
+			const c1 = new Cards(card).render('container')
+		}
+	}
+	</script>
+
+	<div id="container"></div>
+</body>
+</html>

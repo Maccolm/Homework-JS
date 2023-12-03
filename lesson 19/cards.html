@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<style>
+		.container {
+			display: flex;
+		}
+		.card-container{
+			display: flex;
+			align-items: center;
+			flex-direction: column;
+			margin: 10px;
+			padding: 5px;
+			border: 1px groove black;
+		}
+		.card-img{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 50px;
+			width: 50px;
+			border-radius: 50%;
+			background-color: rgb(39, 37, 37);
+			margin-bottom: 12px;
+		}
+		.img{
+			height: 25px;
+			width: 25px;
+		}
+	</style>
+	<script>
+		// Задача.Дано масив з даними про сайти(графічне зображення, назва, посилання).Розробити клас LinkCard, що дозволяє генерувати картку за зразком.
+
+		class LinkCard {
+			constructor({imgSrc, title, link}) {
+				this.srcImg = imgSrc
+				this.title = title
+				this.link = link
+			}
+			render(containerDiv) {
+				const cardContainer = document.createElement('div')
+				cardContainer.className = 'card-container'
+
+				const imgContainer = document.createElement('div')
+				imgContainer.className = 'card-img'
+				
+				const img = document.createElement('img')
+				img.className = 'img'
+				img.src = this.srcImg
+				imgContainer.append(img)
+				cardContainer.append(imgContainer)
+				
+				const titleContainer = document.createElement('div')
+				titleContainer.className ='card-title'
+				
+				const link = document.createElement('a')
+				link.href = this.link
+				link.innerText = this.title
+				
+				titleContainer.append(link)
+				cardContainer.append(titleContainer)
+
+				const targetContainer = document.querySelector(containerDiv)
+				targetContainer.append(cardContainer)
+
+			}
+		}
+		window.onload = function () {
+			for (const card of cardList) {
+				// const c1 = new LinkCard(card)
+				// c1.render('.container')
+				new LinkCard(card).render('.container')
+			}
+		} 
+		const cardList = [
+			{
+				imgSrc: './l19img/heroes.png',
+				title: 'Heroes',
+				link: 'https://www.heroeswm.ru/'
+			},
+			{
+				imgSrc: './l19img/youtube.jpg',
+				title: 'YouTube',
+				link: 'https://www.youtube.com/@Vitaliytixk/featured'
+			}
+		]
+	</script>
+	<div class="container"></div>
+</body>
+</html>

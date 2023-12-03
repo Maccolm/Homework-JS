@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<!-- Задача 3. Відобразити падаючий сніг. Сніжинка з’являється у верхній частині екрану і з випадковою швидкістю рухається
+	вниз. Як тільки сніжинка досягає нижньої частини екрану вона знову повинна з’явитись у верхній частині екрану. -->
+	<style>
+		#container{
+			position: relative;
+			height: 100vh;
+			width: 100%;
+			background-color: rgb(1, 1, 48);
+			overflow: hidden;
+		}
+		.snow{
+			position: absolute;
+			top: 0;
+			left: 50%;
+			height: 17px;
+			width: 17px;
+			background: url('./img/3.png') 0 0 no-repeat;
+			animation: wave 3s ease 0s infinite alternate;
+		}
+		@keyframes wave {
+			0%{
+				transform: translate(0);
+			}
+			100%{
+				transform: translate(70px);
+			}
+		}
+	</style>
+	<script>
+		class SnowFall {
+			constructor(){
+				this.currentPosition = 0
+			}
+			getRandomPosition(){
+				return Math.floor(Math.random() * (100 - 1) + 1) 
+			}
+			getRandomSpeed(){
+				return Math.floor(Math.random() * (2 -1) + 1)
+			}
+			renderSnow(){
+				const snow = document.createElement('div')
+				snow.className = 'snow'
+				snow.style.left = this.getRandomPosition() + '%'
+				return snow 
+			}
+			
+			movingSnow(heigthScreen){	
+				
+				if(this.currentPosition < heigthScreen) {
+					let speed = this.getRandomSpeed()
+					this.currentPosition += speed / 2
+					this.snow.style.top = this.currentPosition + 'px'
+					requestAnimationFrame(() => this.movingSnow(heigthScreen))
+				}else {
+					this.snow.style.left = this.getRandomPosition() + '%'
+					this.currentPosition = 0
+					this.snow.style.top = this.currentPosition + 'px' 
+					this.movingSnow(heigthScreen)
+				}
+			}
+			render(containerId){
+				const targetContainer = document.getElementById(containerId)
+				const height = targetContainer.offsetHeight
+				this.snow = this.renderSnow()
+				
+				targetContainer.append(this.snow)
+				this.movingSnow(height)
+			}
+		}
+		window.onload = function(){
+			let i = 0
+			function createSnow(){
+				const snowfalling1 = new SnowFall()
+				snowfalling1.render('container')
+				setTimeout(() =>{
+					i++
+					if(i<10)	createSnow()
+				}, 3000)
+			}
+			createSnow()
+		}
+	</script>
+	<div id="container"></div>
+</body>
+</html>

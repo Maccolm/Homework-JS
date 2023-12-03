@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<style>
+		#container{
+			position: relative;
+		}
+		button{
+			position: absolute;
+			padding: 10px;
+			transition: all 0.1s ease 0s;
+		}
+	</style>
+	<script>
+		class CrazyButton{
+			constructor(title){
+				this.title = title
+			}
+			getRandomColor(){
+				const colorList = ['grey','white', 'blue', 'yellow', 'purple', "orange", 'pink',  'green', 'red', 'darkblue']
+				const randomIndex = Math.floor(Math.random() * colorList.length)
+				return colorList[randomIndex]
+			}
+			getRandomShift(value){
+				const num = -value + Math.floor(Math.random() * 2 * value)
+				return num
+				console.log(num)
+			}
+			onhover(){
+				const left = parseInt(this.btn.style.left) + this.getRandomShift(170) + 'px'
+				const top = parseInt(this.btn.style.top) + this.getRandomShift(170) + 'px'
+				
+				this.btn.style.left = left
+				this.btn.style.top = top
+				this.btn.style.backgroundColor = this.getRandomColor()
+			}
+			render(containerId){
+				this.btn = document.createElement('button')
+				this.btn.innerText = this.title
+				this.btn.onmouseover = this.onhover.bind(this)
+				this.btn.style.left = '100px'
+				this.btn.style.top = '100px'
+
+				const targetContainer = document.getElementById(containerId)
+				targetContainer.append(this.btn)
+			}
+		}
+		window.onload = function(){
+			const crbtn = new CrazyButton('Спробуй на мене нажати')
+			crbtn.render('container')
+		}
+	</script>
+
+	<div id="container"></div>
+</body>
+</html>

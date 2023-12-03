@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	<style>
+		#container{
+			position: relative;
+			height: 100vh;
+			width: 100%;
+			background-color: #130138;
+			overflow: hidden;
+		}		
+		.star {
+			position: relative;
+			height: 2px;
+			width: 2px;
+			background-color: yellow;
+			border-radius: 50%;
+			transform-origin: center;
+			animation: starAnimation 6s;
+		}
+		@keyframes starAnimation{
+			0% {
+				transform: scale(1);
+			}
+			100% {
+				transform: scale(4)
+			}
+		}
+	</style>
+	<script>
+		// Задача 4. Сяючі зорі.Вказана кількість зірочок повинна з’являтися у випадковій частині екрану.Кожна зірка з певним кроком і інтервалом збільшується від мінімального до максимального розміру.Як тільки досягнути максимального розміру зірочка повинна з’являтися у іншій випадковій позиції.
+
+	class Stars{ 
+		constructor(numStars){
+			this.numStars = numStars
+			this.currentNumStars = 0
+		}
+		getRandomPosition(){
+			return Math.floor(Math.random() * (100 - 1) + 1)
+		}
+		renderStar(){
+			const star = document.createElement("div")
+			star.className = 'star'
+			star.style.top = this.getRandomPosition() + '%'
+			star.style.left = this.getRandomPosition() + '%'
+			return star
+		}
+		lighStars(){
+			const newStar = this.renderStar()
+			
+			this.targetContainer.append(newStar)
+			newStar.addEventListener('animationend', () =>{
+				newStar.remove()
+				setTimeout(()=>{
+					this.lighStars()
+				}, 500)
+			})
+		}
+		start(){
+			if(this.currentNumStars < this.numStars){
+				this.lighStars()
+				setTimeout(()=>{
+					this.start()
+				},2000)
+				this.currentNumStars++
+			}
+		}
+		render(containerId){
+			this.targetContainer = document.getElementById(containerId)
+			this.start()
+		}
+	}
+	window.onload = function(){
+		const stars = new Stars(6)
+		stars.render('container')
+	}
+	</script>
+	<div id="container"></div>
+</body>
+</html>
