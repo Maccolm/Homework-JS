@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>diagram</title>
+</head>
+<body>
+	<!-- Компонент діаграма. Значення від 0 до 100. Область розділено на 3 частини (значення у першій частині – червоне
+	заповнення, значення у другій частині – синій колір, значення у третій – зелений. -->
+
+	<style>
+		#container{
+			width: 520px;
+			border: 2px gray solid;
+			border-radius: 10px;
+		}
+
+		.item{
+			width: 500px;
+			padding: 0 10px;
+			margin-bottom: 5px;
+		}
+		#container div {
+			height: 15px;
+		}
+		.title{
+			width: 150px;
+			display: inline-block;
+		}
+		.container-value{
+			display: inline-block;
+			width: 350px;
+		}
+	</style>	
+	<script>
+		class Diagram {
+			constructor(dataList, backgroundSelectionList, styleObject) {
+				this.dataList = dataList
+				this.selectionColorList = backgroundSelectionList
+				// this.cssStylesObject = styleObject
+				 this.cssStylesObject =
+				{
+					title: 'title',
+					container: 'container',
+					containerValue: 'container-value',
+					item: 'item',
+					...(cssStylesObject ?? {}),
+				}
+			}
+			getValueColor(value){
+				const sectionLength = 100 / this.selectionColorList.length
+				const selectionNum = Math.ceil(value / sectionLength)
+				return this.selectionColorList[selectionNum -1]
+			}
+			createElement({title, value}){
+				const container = document.createElement('div')
+				container.classList.add('item')
+
+				const nameContainer = document.createElement('div')
+				nameContainer.className = this.cssStylesObject.title
+				nameContainer.innerText = title
+				container.append(nameContainer)
+				
+				const valueContainer = document.createElement('div')
+				valueContainer.className = this.cssStylesObject.containerValue
+				const valueDiv = document.createElement('div')
+				valueDiv.style.width = value + '%'
+				valueDiv.style.backgroundColor = this.getValueColor(value)
+
+				valueContainer.append(valueDiv)
+				container.append(valueContainer)
+				return container
+			}
+			render(targetContainerId){
+				const targetContainer = document.getElementById('container')
+
+				this.dataList.forEach((item) => {
+					const createItem = this.createElement(item)
+					targetContainer.append(createItem)
+				});
+			}
+		}
+let cssStylesObject = 
+{
+	title: 'title',
+	container: 'container',
+	containerValue: 'container-value',
+	item: 'item',
+}
+		let dataList =
+		[
+			{
+				title: 'Marie',
+				value: 14
+			},
+			 {
+				title: 'Holy',
+				value: 50
+			},
+			 {
+				title: 'Peter',
+				value: 80
+			},
+			 {
+				title: 'Fary',
+				value: 34
+			},
+			 {
+				title: 'Michael',
+				value: 65
+			}
+		]
+		let selectionList = ['red', 'yellow', 'green', 'purple']
+		
+window.onload = function () {
+		d1 = new Diagram(dataList, selectionList, cssStylesObject)
+		d1.render('container')
+	}
+</script>
+	<div id="container"></div>
+</body>
+</html>

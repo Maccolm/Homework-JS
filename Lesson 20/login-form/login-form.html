@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>login form</title>
+</head>
+<body>
+	<!-- Задача. Розробити форму для введення логіна і пароля. -->
+	<script>
+		class LoginForm{
+			constructor(){
+				
+			}
+			checkValue(){
+				if(this.loginInput.value.length > 0 && this.passwordInput.value.length > 0) {
+					this.btn.disabled = false
+				} else {
+					this.btn.disabled = true
+				}
+			}
+			hoverButton(){
+				if(this.btn.disabled === true) 
+					this.moveButton()
+			} 
+			moveButton(){
+				if(this.btn.style.left == '0px'){
+					this.btn.style.left = '60px'
+				} else {
+					this.btn.style.left = '0px'
+				}
+			}
+			createInput(title, type){
+				const div = document.createElement('div')
+				const label = document.createElement('label')
+				label.innerText = title
+				
+				const input = document.createElement('input')
+				input.type = type
+				input.style.margin = '5px'
+				label.append(input)
+				div.append(label)
+				input.oninput = this.checkValue.bind(this)
+				return({div, input})
+			}
+			render(containerId){
+				const targetContainer = document.getElementById(containerId)
+
+				const loginObj = this.createInput('Login', 'login')
+				targetContainer.append(loginObj.div)
+				this.loginInput = loginObj.input 
+
+				const passwordObj = this.createInput('Password', 'password')
+				targetContainer.append(passwordObj.div)
+				this.passwordInput = passwordObj.input
+
+				this.btn = document.createElement('button')
+				this.btn.innerHTML = 'Login'
+				this.btn.disabled = true
+				this.btn.style.position = 'relative'
+				this.btn.style.left = '0px'
+				this.btn.style.transition = 'left 0.2s ease 0s'
+				this.btn.onmouseover = this.hoverButton.bind(this)
+				targetContainer.append(this.btn)
+			}
+		}
+		window.onload = function(){
+			const form = new LoginForm()
+			form.render('container')
+		}
+	</script>
+	<div id="container"></div>
+</body>
+</html>

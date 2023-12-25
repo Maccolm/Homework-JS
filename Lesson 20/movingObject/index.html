@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>MovingObject</title>
+</head>
+<body>
+	<!-- Блукаючий об’єкт. Випадковим чином рухається деякий об’єкт в межах контейнера. При зустрічі з краєм контейнера він
+	відбивається. -->
+
+	<script>
+		class MovingObject{
+			constructor(imgSrc, imgWidth, conWidth, conHeight){
+				this.imgSrc = imgSrc
+				this.imgWidth = imgWidth
+				this.maxWidth = conWidth
+				this.maxHeight = conHeight
+			}
+			randomNum(min, max){
+				return min + Math.floor(Math.random() * (max - min + 1))
+			}
+			updateImgPosition(){
+				this.img.style.top = this.top + 'px'
+				this.img.style.left = this.left + 'px'
+			}
+			move(){
+				const animate = () =>{
+					const newLeft = this.left + this.vx
+					const newTop = this.top + this.vy
+					if(newLeft < 0 || newLeft + this.imgWidth + 50 > this.maxWidth) this.vx = -this.vx
+					if(newTop < 0 || newTop + this.imgWidth > this.maxHeight) this.vy = -this.vy
+					this.left = newLeft
+					this.top = newTop
+					this.updateImgPosition()
+				this.animationId = requestAnimationFrame(animate)
+				}
+				animate()
+			}
+			start(){
+				this.move()
+			}
+			render(containerId){
+				const targetContainer = document.getElementById(containerId)
+				const container = document.createElement('div')
+				container.style.height = this.maxHeight +'px'
+				container.style.width = this.maxHeight +'px'
+				container.style.border = '2px solid black'
+				container.style.position = 'relative'
+
+				this.img = document.createElement('img')
+				this.img.src = this.imgSrc
+				this.img.style.position = 'absolute'
+				this.img.style.objectFit = 'fill'
+				this.left = this.randomNum(0, (this.maxWidth - 80))
+				this.top = this.randomNum(0, this.maxHeight - this.imgWidth)
+				this.img.style.top = this.top + 'px'
+				this.img.style.left = this.left + 'px'
+
+				this.img.style.height = this.imgWidth +'px'
+				this.img.style.width = this.imgWidth + 'px'
+
+				this.vx = this.randomNum(0.5 ,1.5)
+				this.vy = this.randomNum(0.5 ,1.5)
+				container.append(this.img)
+				targetContainer.append(container)
+				this.start()
+			}
+		}
+		window.onload = function(){
+			const el = new MovingObject('./img/1.png', 80, 500, 450)
+			el.render('container')
+		}
+	</script>
+	<div id="container"></div>
+</body>
+</html>

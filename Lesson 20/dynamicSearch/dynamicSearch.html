@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>DynamicSearch</title>
+</head>
+<body>
+	<!-- Динамічний пошук. Є список працівників і поле пошуку. При введенні відображаються усі, які містять вказаний фрагмент -->
+
+	<script>
+		class DynamicSearch{
+			constructor(names){
+				this.names = names
+			}
+			getNameList(){
+				const nameList = document.createElement('ul')
+				this.names.forEach(name => {
+					const li = document.createElement('li')
+					li.innerText = name
+					nameList.append(li)
+				})
+				return nameList
+			}
+			displayName(){
+				const filtered = this.names.filter((name) => name.includes(this.input.value))
+				this.namesContainer.innerHTML = ''
+				const newNameList = document.createElement('ul')
+				filtered.forEach(name =>{
+					const li = document.createElement('div')
+					li.innerText = name
+					newNameList.append(li)
+				})
+				this.namesContainer.append(newNameList)
+			}
+			render(containerId){
+				this.targetContainer = document.getElementById(containerId)
+				const searchContainer = document.createElement('div')
+				searchContainer.innerHTML = 'Name '
+				this.input = document.createElement('input')
+				searchContainer.append(this.input)
+				this.input.oninput = this.displayName.bind(this)
+				this.targetContainer.append(searchContainer)
+				
+				this.namesContainer = document.createElement('div')
+				const namesList = this.getNameList()
+				this.namesContainer.append(namesList)
+				this.targetContainer.append(this.namesContainer)
+			}
+		}
+		const names = ['Emily','Benjamin','Sophia','Liam','Olivia','James','Ava', 'Charlotte','Jackson','Emma','Aiden','Isabella','Noah','Oliver','Mia','Ethan']
+		window.onload = function(){
+			const s1 = new DynamicSearch(names)
+			s1.render('container')
+		}
+	</script>
+	<div id="container"></div>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>find Number</title>
+</head>
+<body>
+	<!-- Задача. Гра «Вгадай число». Двоє користувачів вводять числа у діапазоні від 1 до 10. Комп’ютер генерує випадкове число.
+	Виграє той, чиє число ближче до згенерованого. -->
+
+	<script>
+		
+
+		class FindNumber{
+			constructor(minValue, maxValue){
+				this.minValue = minValue
+				this.maxValue = maxValue
+				this.firstUserScore = 0
+				this.secondUserScore = 0
+			}
+			createElement(labelText){
+				const itemContainer = document.createElement('div')
+				const label = document.createElement('label')
+				label.innerText = labelText
+				const input = document.createElement('input')
+				itemContainer.append(label)
+				itemContainer.append(input)
+				input.onfocus = this.onFocus.bind(this)
+				return {itemContainer, input}
+			}
+			checkNumbers(){
+				const firstUserInput = parseInt(this.firstUserInput.value)
+				const secondUserInput = parseInt(this.secondUserInput.value)
+				const compNum = this.minValue + Math.floor(Math.random() * (this.maxValue - this.minValue + 1))
+				const firstUserResult = Math.abs(firstUserInput - compNum)
+				const secondUserResult = Math.abs(secondUserInput - compNum)
+				if(Math.abs(firstUserInput - compNum) < Math.abs(secondUserInput - compNum)){
+					this.firstUserInput.style.backgroundColor = 'green'
+					this.secondUserInput.style.backgroundColor = 'red'
+					this.firstUserScore++
+				} else if (Math.abs(firstUserInput - compNum) > Math.abs(secondUserInput - compNum)) {
+					this.firstUserInput.style.backgroundColor = 'red'
+					this.secondUserInput.style.backgroundColor = 'green'
+					this.secondUserScore++
+				} else{
+					this.firstUserInput.style.backgroundColor = 'yellow'
+					this.secondUserInput.style.backgroundColor = 'yellow'
+				}
+
+				this.addToHistory(firstUserInput, secondUserInput, compNum)
+				this.updateSpanResults()
+				this.checkFlag = true
+			}
+			onFocus(){
+				if(this.checkFlag){
+					this.updateInputData()
+					this.clearInputStyles()
+					this.checkFlag = false
+				}
+			}
+			updateInputData(){
+				this.firstUserInput.value = 0
+				this.secondUserInput.value = 0
+			}
+			clearInputStyles(){
+				this.firstUserInput.style.backgroundColor = 'white'
+				this.secondUserInput.style.backgroundColor = 'white'
+			}
+			updateSpanResults(){
+				this.firstUserScoreSpan.innerHTML = this.firstUserScore
+				this.secondUserScoreSpan.innerText = this.secondUserScore
+			}
+			addToHistory(firstUserNum, secondUserNum, compNum){
+				const div = document.createElement('div')
+				div.innerHTML = `First user number: ${firstUserNum}, Second user number: ${secondUserNum}, Comp Number: ${compNum}`
+				this.history.append(div)
+			}
+			render(targetContainerSelector){
+				const targetContainer = document.querySelector(targetContainerSelector)
+				const container = document.createElement('div')
+			
+				const inpObj = this.createElement('First user')
+				container.append(inpObj.itemContainer)
+				this.firstUserInput = inpObj.input
+
+				const inpObj2 = this.createElement('Second user')
+				container.append(inpObj2.itemContainer)
+				this.secondUserInput = inpObj2.input
+
+				const btn = document.createElement('button')
+				btn.innerText = 'Check'
+				btn.onclick = this.checkNumbers.bind(this)
+				container.append(btn)
+
+				this.history = document.createElement('div')
+				container.append(this.history)
+
+				const res = document.createElement('div')
+				res.innerText = 'First user score '
+				this.firstUserScoreSpan = document.createElement('span')
+				this.firstUserScoreSpan.innerText = this.firstUserScore
+				res.append(this.firstUserScoreSpan)
+
+				res.innerHTML += ', Second user score '
+				this.secondUserScoreSpan = document.createElement('span')
+				this.secondUserScoreSpan.innerText = this.secondUserScore
+				res.append(this.secondUserScoreSpan)
+				res.style.fontWeight = 700
+				container.append(res)
+				
+				this.firstUserScoreSpan = res.querySelector('span')
+				this.secondUserScoreSpan = res.querySelector('span:nth-child(2)')
+				console.log(this.secondUserScoreSpan, this.firstUserScoreSpan);
+				targetContainer.append(container)
+			}
+		}
+		window.onload = function(){
+			const g1 = new FindNumber(1,10)
+			g1.render('.container')
+		}
+	</script>
+
+	<div class="container"></div>
+</body>
+</html>

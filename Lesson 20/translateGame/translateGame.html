@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Translate Words</title>
+</head>
+<body>
+	<style>
+		 /* Перекладач. Користувачу виводять змішані картки з словами на англійській і українській мові. Користувач поступово клікає на картки (виділяємо синьою рамкою). Якщо знайдено правильні пари карток, що відповідають одному слову, то видаляємо ці картки. Інакше - виділяємо червоною рамкою і через секунду забираємо рамку. */
+
+		#container{
+			display: flex;
+			column-gap: 15px;
+			min-width: 250px;
+		}
+		.word{
+			border: 1px solid black;
+			margin: 5px;
+			padding: 5px;
+			font-size: 18px;
+			border-radius: 5px;
+			transition: all 0.3s ease 0s;
+		}
+		.word:hover{
+			cursor: pointer;
+			border-color: blue;
+			color: blue;
+		}
+		.active{
+			border-color: rgb(255, 120, 9);
+			color: rgb(255, 120, 9);
+		}
+		.active:hover{
+			color: rgb(255, 120, 9);
+			border-color: rgb(255, 120, 9);
+
+		}
+		.correct{
+			background-color: green;
+		}
+		.incorrect{
+			background-color: red;
+		}
+		.result{
+			padding: 5px;
+			font-size: 18px;
+			opacity: 0;
+			animation: appear 1.5s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s forwards;
+		}
+		@keyframes appear {
+			0%{
+				opacity: 0;
+				transform: scale(0.9);
+			}
+			50%{
+				transform: scale(1.02);
+			}
+			100%{
+				opacity: 1;
+				visibility: visible;
+				transform: scale(1);
+			}
+		}
+	</style>
+	<script>
+		class TranslateWords{
+			constructor(wordsArray, cssObj){
+				this.words = wordsArray
+				this.selectedUaWordId = null
+				this.selectedEnWordId = null
+				//Установка флагу для фіксу багу, забороняю вибирати інші елементи, коли елементи вибрані і йде анімація
+				this.canSelectWord = true
+				this.cssObj = {
+					word: 'word',
+					active: 'active',
+					correctAnswer: 'correct',
+					incorrectAnswer: 'incorrect',
+					result: 'result',
+					...(cssObj ?? {})
+				}
+			}
+			mixArray(array){
+				for(let i = array.length - 1; i > 0; i--){
+					const j = Math.floor(Math.random() * (i +1))
+					 const temp = array[i];
+					array[i] = array[j];
+					array[j] = temp;
+				}
+				return array
+			}
+			takeWordsFromArray(){
+				//копіюю перші 5 елементів в новий масив
+				if(this.shuffledWords.length >= 5){
+					this.blockWordsFromArray = this.shuffledWords.slice(0, 5)
+					this.shuffledWords.splice(0,5)
+				
+					// формую цей список та вставляю в контейнер
+					const enList = this.renderList('en')
+					const uaList = this.renderList('ua')
+					
+					this.enContainer.append(...enList)
+					this.uaContainer.append(...uaList)
+				} else if(this.shuffledWords.length < 5 && this.shuffledWords.length > 0){
+					//дізнаюся довжину масиву
+					const lengthArray = this.shuffledWords.length
+					this.blockWordsFromArray = this.shuffledWords.slice(0, lengthArray)
+					this.shuffledWords.splice(0, lengthArray)
+
+					const enList = this.renderList('en')
+					const uaList = this.renderList('ua')
+					this.enContainer.append(...enList)
+					this.uaContainer.append(...uaList)
+				} else {
+					const enResult = document.createElement('div')
+					const uaResult = document.createElement('div')
+					enResult.className = this.cssObj.result
+					uaResult.className = this.cssObj.result
+					enResult.innerHTML = 'Congratulation, you have passed the test!'
+					uaResult.innerHTML = 'Вітаю, тест пройдений, ти молодець!'
+					this.enContainer.append(enResult)
+					this.uaContainer.append(uaResult)
+				}
+			}
+			renderList(language){
+			const	newMixedArray = this.mixArray(this.blockWordsFromArray)
+				let list =[]
+				newMixedArray.forEach(element => {
+					const word = document.createElement('div')
+					word.className = this.cssObj.word
+					word.innerText = element[language]
+					word.setAttribute('id', element.id)
+					list.push(word)
+					word.onclick = (event) => this.addWord(event ,element.id, language)
+				})
+				
+					return list 				
+			}
+			checkWords(){
+				if (this.selectedEnWordId !== null && this.selectedUaWordId !== null) {
+				//Якщо слова вибрані, то блокую їх подальший вибір
+					this.canSelectWord = false
+
+					if(this.selectedEnWordId == this.selectedUaWordId){
+						
+						this.enWord.classList.add(this.cssObj.correctAnswer)
+						this.uaWord.classList.add(this.cssObj.correctAnswer)
+						this.selectedUaWordId = null
+						this.selectedEnWordId = null
+						setTimeout(()=>{
+							this.enWord.remove()
+							this.uaWord.remove()
+							//перевіряємо на елементи в блоці,якщо їх не залишилося, то беремо нові(childElementCount > 0)
+							if (!this.enContainer.hasChildNodes()) this.takeWordsFromArray()
+						// Після закінчення таймеру міняю флаг і дозволяю клікати на інші об"єкти
+							this.canSelectWord = true
+						},700)
+						setTimeout(()=>{
+							this.enWord.style.visibility = 'hidden'
+							this.uaWord.style.visibility = 'hidden'
+						},400)
+					} else {
+						this.enWord.classList.add(this.cssObj.incorrectAnswer)
+						this.uaWord.classList.add(this.cssObj.incorrectAnswer)
+						setTimeout(()=>{
+							this.enWord.classList.remove(this.cssObj.incorrectAnswer, this.cssObj.active)
+							this.uaWord.classList.remove(this.cssObj.incorrectAnswer, this.cssObj.active)	
+							this.selectedUaWordId = null
+							this.selectedEnWordId = null
+						
+							// Після закінчення таймеру міняю флаг і дозволяю клікати на інші об"єкти
+							this.canSelectWord = true
+						},700)
+					}
+				}
+			}
+			addWord(event, id, language){
+				//перевіряю, якщо флаг false - то забороняю взяємодію з контейнером інакше дозволяю
+				if(!this.canSelectWord){
+					this.enContainer.style.pointerEvents = 'none'
+					this.uaContainer.style.pointerEvents = 'none'
+				} else {
+					this.enContainer.style.pointerEvents = 'inherit'
+					this.uaContainer.style.pointerEvents = 'inherit'
+				}
+				if(language === 'en'){
+					this.enWord = event.currentTarget
+					//отримую масив з списку слів
+					const enListItems = Array.from(this.enContainer.children)
+					//перевіряємо наявність класу active
+					
+					enListItems.forEach(word =>{
+						if(word.classList.contains(this.cssObj.active))
+						//якщо той клас є, то видаляємо
+						word.classList.remove(this.cssObj.active)
+						this.selectedEnWordId = null
+					})
+					
+					this.enWord.classList.add(this.cssObj.active)
+					this.selectedEnWordId = id
+				} else if(language === 'ua'){
+					this.uaWord = event.currentTarget
+					const uaListItems = Array.from(this.uaContainer.children)
+
+					uaListItems.forEach(word =>{
+						if(word.classList.contains(this.cssObj.active))
+							word.classList.remove(this.cssObj.active)			
+							this.selectedUaWordId = null						
+						})
+				
+					this.uaWord.classList.add(this.cssObj.active)
+					this.selectedUaWordId = id
+				}
+				this.checkWords()
+			}
+
+			render(containerId){
+				const targetContainer = document.getElementById(containerId)
+				this.uaContainer = document.createElement('div')
+				this.enContainer = document.createElement('div')
+				this.uaContainer.style.border = '2px solid black'
+				this.enContainer.style.border = '2px solid black'
+				this.enContainer.style.borderRadius = '10px'
+				this.uaContainer.style.borderRadius = '10px'
+				this.enContainer.style.width = '170px'
+				this.uaContainer.style.width = '170px'
+				this.enContainer.style.minHeight = '190px'
+				this.uaContainer.style.minHeight = '190px'
+				this.shuffledWords = this.mixArray(this.words)
+				this.takeWordsFromArray()
+				
+				targetContainer.append(this.enContainer)
+				targetContainer.append(this.uaContainer)
+			}
+		}
+		const words = [
+			{ id: 1, en: 'explore', ua: 'досліджувати' },
+			{ id: 2, en: 'analyze', ua: 'аналізувати' },
+			{ id: 3, en: 'evaluate', ua: 'оцінювати' },
+			{ id: 4, en: 'synthesize', ua: 'синтезувати' },
+			{ id: 5, en: 'comprehend', ua: 'розуміти' },
+			{ id: 6, en: 'investigate', ua: 'розслідувати' },
+			{ id: 7, en: 'interpret', ua: 'інтерпретувати' },
+			{ id: 8, en: 'scrutinize', ua: 'ретельно вивчати' },
+			{ id: 9, en: 'survey', ua: 'опитування' },
+			{ id: 10, en: 'assess', ua: 'оцінювати' },
+			{ id: 11, en: 'examine', ua: 'досліджувати' },
+			{ id: 12, en: 'expound', ua: 'розкривати' },
+			{ id: 13, en: 'verify', ua: 'перевіряти' },
+			{ id: 14, en: 'clarify', ua: 'роз’яснювати' },
+			{ id: 15, en: 'illuminate', ua: 'освітлювати' },
+		]
+
+		window.onload = function(){
+			const game = new TranslateWords(words)
+			game.render('container')
+		}
+	</script>
+	<div id="container"></div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Loader</title>
+</head>
+<body>
+	<!-- Розробити Loader (задається title, value). Зімітувати завантаження за допомогою таймера. -->
+
+	<style>
+		.container{
+			width: 520px;
+			border-radius: 10px;
+		}
+
+		.item{
+			width: 500px;
+			padding: 0 10px;
+			margin-bottom: 5px;
+		}
+		.container div {
+			height: 15px;
+		}
+		.title{
+			width: 50px;
+			display: inline-block;
+		}
+		.container-value{
+			display: inline-block;
+			width: 350px;
+			text-align: center;
+			position: relative;
+			z-index: 2;
+		}
+		.value{
+			background-color: aquamarine;
+			position: absolute;
+			z-index: -1;
+			top: 0;
+			left: 0;	
+			transition: width 2s ease-out;
+		}
+
+	</style>
+	<script>
+		class Loader{
+			constructor(title, value, cssObj){
+				this.title = title
+				this.value = value
+				this.cssObj = {
+					title: 'title',
+					item: 'item',
+					containerValue: 'container-value',
+					value: 'value',
+					...(cssObj ?? {}) 
+				}
+			}
+
+			createElement(){
+				const itemContainer = document.createElement('div')
+				itemContainer.className = this.cssObj.item
+
+				const titleContainer = document.createElement('div')
+				titleContainer.className = this.cssObj.title
+				titleContainer.innerHTML = this.title
+				itemContainer.append(titleContainer)
+
+				const valContainer = document.createElement('div')
+				valContainer.className = this.cssObj.containerValue
+				valContainer.innerText = `${this.value}%`
+				const valueDiv = document.createElement('div')
+				valueDiv.className = this.cssObj.value
+				valueDiv.style.width = this.value + '%'
+		
+				valContainer.append(valueDiv)
+				itemContainer.append(valContainer)
+				return itemContainer
+			}
+			render(targetContainerSelector){
+				const container = document.createElement('div')
+				container.append(this.createElement())
+
+				const targetContainer = document.querySelector(targetContainerSelector)
+				targetContainer.innerHTML = ''
+								
+				targetContainer.append(container)
+
+			}
+		}
+		window.onload = function(){
+			const l1 = new Loader('Game', 30)
+			const load = setInterval(() => {
+				l1.value += 5
+				if(l1.value > 100)
+				 clearInterval(load)
+				else l1.render('.container')
+			}, 2000);
+			l1.render('.container')
+		}
+		</script>
+
+<div class="container"></div>
+</body>
+</html>

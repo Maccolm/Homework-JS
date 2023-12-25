@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quantity</title>
+</head>
+<body>
+	<!-- Develop an element for entering the quantity of the selected product according to the sample (minimum quantity 1,
+	maximum quantity 10, if exceeded, block the button) -->
+	<style>
+		.row{
+			display: flex;
+			column-gap: 15px;
+			align-items: center;
+		}
+		.label{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			column-gap: 10px;			
+		}
+		.quantity-container{
+			display: flex;
+			column-gap: 10px;
+		}
+		button{
+			border: 1px solid black;
+			height: 20px;
+			width: 20px;
+			text-align: center;
+		}
+		button:active{
+			background-color: rgb(141, 140, 140);
+		}
+	</style>
+	<script>
+		class QuantityStuff{
+			constructor({numOfStuff, price, imgSrc, nameOfProduct}){
+				this.numOfStuff = numOfStuff
+				this.price = price
+				this.imgSrc = imgSrc
+				this.nameOfProduct = nameOfProduct
+				this.quantityProduct = 1
+			}
+			checkQuantityAdd(){
+				if(this.quantityProduct < this.numOfStuff){
+					if(this.buttonMinus.hasAttribute('disabled'))
+						this.buttonMinus.removeAttribute('disabled')
+					this.quantityProduct++
+					this.newPrice = this.quantityProduct * this.price
+					this.priceContainerSpan.innerText = this.newPrice + " $"
+					this.quantity.innerHTML = this.quantityProduct
+					if(this.quantityProduct == this.numOfStuff) 
+						this.buttonPlus.setAttribute('disabled', 'true')
+				} else{
+					this.buttonPlus.setAttribute('disabled', 'true')
+				}
+			}
+			checkQuantityReduce(){
+				if(this.quantityProduct > 1){
+					if (this.buttonPlus.hasAttribute('disabled'))
+						this.buttonPlus.removeAttribute('disabled')
+					this.quantityProduct--
+					this.newPrice = this.quantityProduct * this.price
+					this.priceContainerSpan.innerText = this.newPrice + " $"
+					this.quantity.innerHTML = this.quantityProduct
+					if(this.quantityProduct == 1)
+						this.buttonMinus.setAttribute('disabled', 'true')
+				} else {
+					this.buttonMinus.setAttribute('disabled', 'true')
+				}
+			}
+			getElement(){
+				const row = document.createElement('div')
+				row.className = 'row'
+				const label = document.createElement('div')
+				label.className = 'label'
+				const img = document.createElement('img')
+				img.src = this.imgSrc
+				const title = document.createElement('div')
+				title.innerText = this.nameOfProduct
+
+				label.append(img)
+				label.append(title)
+				row.append(label)
+
+				const quantityContainer = document.createElement('div')
+				quantityContainer.className = 'quantity-container' 
+				this.buttonMinus = document.createElement('button')
+				this.buttonMinus.innerText = '-'
+				this.buttonMinus.onclick = this.checkQuantityReduce.bind(this)
+
+				this.quantity = document.createElement('div')
+				this.quantity.innerHTML = this.quantityProduct
+				this.buttonPlus = document.createElement('button')
+				this.buttonPlus.innerText = '+'
+				this.buttonMinus.setAttribute('disabled', 'true')
+
+				this.buttonPlus.onclick = this.checkQuantityAdd.bind(this)
+
+				quantityContainer.append(this.buttonMinus)
+				quantityContainer.append(this.quantity)
+				quantityContainer.append(this.buttonPlus)
+				row.append(quantityContainer)
+
+				const priceContainer = document.createElement('div')
+				priceContainer.innerText = 'To pay: '
+				this.priceContainerSpan = document.createElement('span')
+				this.priceContainerSpan.innerText = this.price + " $"
+				this.priceContainerSpan.style.color = 'red'
+				priceContainer.append(this.priceContainerSpan)
+				row.append(priceContainer)
+				return row
+			}
+			render(targetContainerSelector){
+				const targetContainer = document.querySelector(targetContainerSelector)
+				const product = this.getElement()
+				targetContainer.append(product)
+			}
+		}
+		window.onload = function(){
+			// const tv = new QuantityStuff(products[0])
+			// tv.render('.container')
+			products.forEach(el =>{
+				const tv = new QuantityStuff(el)
+				tv.render('.container')
+			})
+		}
+		const products = [
+			{
+				numOfStuff: 10,
+				price: 1500,
+				imgSrc: './img/1.png',
+				nameOfProduct: 'TV Hisense 55A63H'
+			},
+			{
+				numOfStuff: 5,
+				price: 1200,
+				imgSrc: './img/1.png',
+				nameOfProduct: 'TV Hisense 878'
+			},
+			{
+				numOfStuff: 2,
+				price: 2300,
+				imgSrc: './img/1.png',
+				nameOfProduct: 'TV Hisense Ultra'
+			},
+		 
+		]
+	</script>
+</body>
+<div class="container"></div>
+</html>

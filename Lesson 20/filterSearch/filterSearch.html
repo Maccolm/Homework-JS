@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>filter search</title>
+</head>
+<body>
+	<!-- Дано список автомобілів (марка, рік випуску, ціна). Сформувати елементи для фільтрування з використанням випадаючого
+	списку (контент цих випадаючих списків сформувати у залежності від переданого списку). -->
+
+	<style>
+		p{
+			margin: 5px;
+		}
+	</style>
+	<script>
+		class Filter{
+			constructor(autoArray){
+				this.autoArray = autoArray
+			}
+			selectedModel(event){
+				const selectedValue = event.target.value
+			
+				const filteredList = this.autoArray.filter(model => model.model == selectedValue)
+				if(filteredList.length == 0) {
+					this.getAuto()
+				} else{
+					this.listAuto.innerHTML = ''
+					filteredList.forEach(el =>{
+						const p = document.createElement('p')
+						p.innerHTML = `Model: ${el.model}, year: ${el.year}, Price: ${el.price}`
+						this.listAuto.append(p)
+					})
+				}
+			}
+			selectedYear(event){
+				const selectedValue = event.target.value
+				const filteredList = this.autoArray.filter(auto => auto.year == selectedValue)
+				if(filteredList.length == 0) {
+					this.getAuto()
+				} else {
+					this.listAuto.innerHTML = ''
+					filteredList.forEach(auto =>{
+						const p = document.createElement('p')
+						p.innerHTML = `Model: ${auto.model}, year: ${auto.year}, Price: ${auto.price}`
+						this.listAuto.append(p)
+					})
+				}
+			}
+			// selectedModelAndYear(event){
+			// 	const model = this.selectModel.value
+			// 	const year = this.selectYear.value
+			// 	const filteredList = this.autoArray.filter(auto => auto.year == year && auto.model == model)
+			// 	if (filteredList.length == 0) {
+			// 		this.getAuto()
+			// 	} else {
+			// 		this.listAuto.innerHTML = ''
+			// 		filteredList.forEach(auto => {
+			// 			const p = document.createElement('p')
+			// 			p.innerHTML = `Model: ${auto.model}, year: ${auto.year}, Price: ${auto.price}`
+			// 			this.listAuto.append(p)
+			// 		})
+			// 	}
+			// }
+			getFilter(){
+				const div = document.createElement('div')
+				const label = document.createElement('label')
+				label.innerHTML = 'Model'
+				this.selectModel = document.createElement('select')
+				this.option = document.createElement('option')
+				this.option.innerText = 'choose a model'
+				this.selectModel.append(this.option)
+
+				const models = this.autoArray.map(el => el.model)
+				const newModels = [...new Set(models)]
+				newModels.sort()
+				newModels.forEach(el =>{
+					const opt = document.createElement('option')
+					opt.innerText = el
+					this.selectModel.append(opt)
+				})
+				// this.selectModel.onchange = this.selectedModelAndYear.bind(this)
+			
+				this.selectModel.onchange = this.selectedModel.bind(this)
+				label.append(this.selectModel)
+				div.append(label)
+
+				const yearContainer = document.createElement('div')
+				const labelYear = document.createElement('label')
+				labelYear.innerText = 'Year'
+				this.selectYear = document.createElement('select')
+				const optionYear = document.createElement('option')
+				optionYear.innerText = 'Select year'
+				this.selectYear.append(optionYear)
+
+				const years = this.autoArray.map(el => el.year)
+				const newYears = [...new Set(years)]
+				newYears.sort((a,b) => b - a)
+				newYears.forEach(el =>{
+					const opt = document.createElement('option')
+					opt.innerText = el
+					this.selectYear.append(opt)
+				})
+				// this.selectYear.onchange = this.selectedModelAndYear.bind(this)
+				
+				this.selectYear.onchange = this.selectedYear.bind(this)
+
+				yearContainer.append(labelYear)
+				yearContainer.append(this.selectYear)
+				div.append(yearContainer)
+				div.style.display = 'flex'
+				div.style.columnGap = '20px'
+				div.style.height = '120px'
+				div.style.width = '300px'
+				div.style.border = '1px solid blue'
+				
+				return div
+			}
+			getAuto(){
+				this.listAuto.innerHTML = ''
+				this.autoArray.forEach(el =>{
+					const p = document.createElement('p')
+					p.textContent = `Model: ${el.model}, Year: ${el.year}, Price: ${el.price}`
+					this.listAuto.append(p)
+				})
+			}
+			render(containerId){
+				const targetContainer = document.getElementById(containerId)
+				const filterContainer = document.createElement('div')
+				this.listAuto = document.createElement('div')
+				
+				const model = this.getFilter()
+				filterContainer.append(model)
+				targetContainer.append(filterContainer)
+
+				const allAuto = this.getAuto()
+				targetContainer.append(this.listAuto)
+			} 
+		}
+		window.onload = function(){
+			const f1 = new Filter(autos)
+			f1.render('container')
+		}
+		const autos = [
+			{
+				model: 'Audi',
+				year: '2004',
+				price: '7000$'
+			},
+			{
+				model: 'Mercedes',
+				year: '2023',
+				price: '77000$'
+			},
+			{
+				model: 'Opel',
+				year: '2014',
+				price: '17000$'
+			},
+			{
+				model: 'Reno',
+				year: '2016',
+				price: '15000$'
+			},
+			{
+				model: 'Opel',
+				year: '2002',
+				price: '5000$'
+			},
+			{
+				model: 'Audi',
+				year: '2008',
+				price: '12000$'
+			},
+			{
+				model: 'Audi',
+				year: '2017',
+				price: '15000$'
+			},
+		]
+	</script>
+	<div id="container"></div>
+</body>
+</html>
